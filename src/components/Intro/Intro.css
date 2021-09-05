@@ -1,0 +1,40 @@
+.intro-container {
+  height: calc(100vh - 5rem);
+  margin: 0rem 4rem 0rem 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8rem;
+  place-items: center;
+}
+
+.intro-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.intro-description > * {
+  align-self: flex-start;
+}
+
+.intro-description-heading {
+  font-size: 3rem;
+  color: rgba(0, 0, 0, 0.863);
+}
+
+.intro-description-text {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  color: gray;
+}
+
+.shop-now-btn {
+  font-size: 2rem;
+}
+
+.intro-img {
+  height: 550px;
+  width: 100%;
+}

@@ -1,6 +1,5 @@
-/* #ab7a5f */
 .navbar {
-  margin: 1rem;
+  margin: 0.7rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,7 +21,7 @@
   /* margin: 0.5rem; */
   margin-left: 0.5rem;
   margin-right: 0.5rem;
-  padding: 1rem;
+  padding: 0.8rem;
   border-bottom: 2px solid white;
 }
 
