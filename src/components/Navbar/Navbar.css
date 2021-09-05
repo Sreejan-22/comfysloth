@@ -1,0 +1,45 @@
+/* #ab7a5f */
+.navbar {
+  margin: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.company-logo {
+  height: 50px;
+  cursor: pointer;
+}
+
+.navlinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navlinks a {
+  color: rgb(90, 90, 90);
+  /* margin: 0.5rem; */
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  padding: 1rem;
+  border-bottom: 2px solid white;
+}
+
+.navlinks a:hover {
+  border-bottom: 2px solid rgb(165, 97, 42);
+}
+
+.navmenu button {
+  /* color: black; */
+  margin: 1rem;
+  /* font-size: 1.5rem; */
+  text-transform: none;
+}
+
+@media screen and (max-width: 992px) {
+  .navlinks,
+  .navmenu {
+    display: none;
+  }
+}
