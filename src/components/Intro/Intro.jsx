@@ -18,7 +18,7 @@ const theme = createTheme({
 const useStyles = makeStyles({
   shopNowBtn: {
     fontSize: "1.2rem",
-    fontWeight: "lighter",
+    fontWeight: "300",
   },
 });
 
