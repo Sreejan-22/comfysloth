@@ -1,7 +1,7 @@
 import Button from "@material-ui/core/Button";
 import {
   createTheme,
-  // makeStyles,
+  makeStyles,
   ThemeProvider,
 } from "@material-ui/core/styles";
 import store from "../../assets/store.jpeg";
@@ -15,7 +15,15 @@ const theme = createTheme({
   },
 });
 
+const useStyles = makeStyles({
+  shopNowBtn: {
+    fontSize: "1.2rem",
+    fontWeight: "lighter",
+  },
+});
+
 const Intro = () => {
+  const classes = useStyles();
   return (
     <div className="intro-container">
       <div className="intro-description">
@@ -34,7 +42,7 @@ const Intro = () => {
             size="large"
             color="primary"
             disableElevation
-            className="shop-now-btn"
+            className={classes.shopNowBtn}
           >
             Shop Now
           </Button>
