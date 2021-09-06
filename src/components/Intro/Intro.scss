@@ -48,6 +48,8 @@
 
 @media screen and (max-width: 992px) {
   .intro-container {
+    min-height: 60vh;
+    max-height: 70vh;
     margin: 5rem 6rem 0rem 6rem;
     display: grid;
     grid-template-columns: 1fr;

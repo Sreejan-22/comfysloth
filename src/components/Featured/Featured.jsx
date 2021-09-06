@@ -16,6 +16,7 @@ const Featured = () => {
   return (
     <div className="featured">
       <h1>Featured Products</h1>
+      <div className="brown-line"></div>
       <div className="featured-pdts">
         {featuredProducts.map((item, index) => {
           return (

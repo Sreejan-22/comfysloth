@@ -12,6 +12,13 @@ $brown: #ab7a5f;
     margin-top: 2rem;
   }
 
+  .brown-line {
+    margin-top: 0.5rem;
+    height: 3px;
+    width: 80px;
+    background-color: $brown;
+  }
+
   button {
     margin-bottom: 2rem;
   }
@@ -41,5 +48,26 @@ $brown: #ab7a5f;
     justify-content: space-between;
     align-items: center;
     color: $brown;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .featured-pdts {
+    grid-template-columns: repeat(2, minmax(200px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .featured-pdts {
+    padding: 3rem;
+    grid-template-columns: minmax(200px, 1fr);
+    gap: 20px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .featured-pdts {
+    padding: 2rem;
   }
 }
