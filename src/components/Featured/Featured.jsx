@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import StyledButton from "../StyledButton/StyledButton";
-import "./Featured.css";
+import "./Featured.scss";
 
 const useStyles = makeStyles({
   allProducts: {

@@ -1,7 +1,7 @@
 import Navbar from "../../components/Navbar/Navbar";
 import Intro from "../../components/Intro/Intro";
 import Featured from "../../components/Featured/Featured";
-import "./Home.css";
+import "./Home.scss";
 
 const Home = () => {
   return (

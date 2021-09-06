@@ -5,7 +5,7 @@ import {
   ThemeProvider,
 } from "@material-ui/core/styles";
 import store from "../../assets/store.jpeg";
-import "./Intro.css";
+import "./Intro.scss";
 
 const theme = createTheme({
   palette: {

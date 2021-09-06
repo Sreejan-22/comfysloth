@@ -8,7 +8,7 @@ import Button from "@material-ui/core/Button";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Badge from "@material-ui/core/Badge";
 import comfysloth from "../../assets/comfysloth.svg";
-import "./Navbar.css";
+import "./Navbar.scss";
 
 const theme = createTheme({
   palette: {
