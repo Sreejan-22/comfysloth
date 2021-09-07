@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
   createTheme,
@@ -7,7 +8,9 @@ import {
 import Button from "@material-ui/core/Button";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Badge from "@material-ui/core/Badge";
+import MenuIcon from "@material-ui/icons/Menu";
 import comfysloth from "../../assets/comfysloth.svg";
+import NavbarDrawer from "./NavbarDrawer";
 import "./Navbar.scss";
 
 const theme = createTheme({
@@ -38,6 +41,7 @@ const useStyles = makeStyles({
 const Navbar = () => {
   const classes = useStyles();
   const history = useHistory();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav className="navbar">
@@ -57,7 +61,6 @@ const Navbar = () => {
         <a href="/products">Products</a>
       </div>
       <div className="navmenu">
-        {/* <a href="/cart">Cart</a> */}
         <ThemeProvider theme={theme}>
           <Button
             // variant="outlined"
@@ -72,8 +75,17 @@ const Navbar = () => {
             Login
           </Button>
         </ThemeProvider>
-        {/* <a href="/login">Login</a> */}
       </div>
+      <div className="menu-icon-wrapper">
+        <MenuIcon
+          color="#ab7a5f"
+          className="menu-icon"
+          fontSize="large"
+          htmlColor="#ab7a5f"
+          onClick={() => setIsOpen(true)}
+        />
+      </div>
+      <NavbarDrawer state={isOpen} setState={setIsOpen} />
     </nav>
   );
 };

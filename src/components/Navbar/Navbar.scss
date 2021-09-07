@@ -1,4 +1,5 @@
 $nav-bg-color: #ffffff;
+$brown: #ab7a5f;
 
 .navbar {
   position: fixed;
@@ -37,7 +38,7 @@ $nav-bg-color: #ffffff;
 
 .navlinks a:hover {
   /* border-bottom: 2px solid rgb(165, 97, 42); */
-  border-bottom: 2px solid #ab7a5f;
+  border-bottom: 2px solid $brown;
 }
 
 .navmenu button {
@@ -47,9 +48,28 @@ $nav-bg-color: #ffffff;
   text-transform: none;
 }
 
+.menu-icon-wrapper {
+  display: none;
+}
+
 @media screen and (max-width: 992px) {
+  .navbar {
+    padding: 0.5rem 2rem 0rem 3rem;
+  }
+
   .navlinks,
   .navmenu {
     display: none;
+  }
+
+  .menu-icon-wrapper {
+    display: block;
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .navbar {
+    padding: 0.5rem 1.5rem 0rem 1.5rem;
   }
 }
