@@ -51,7 +51,7 @@ const Navbar = () => {
           alt=""
           className="company-logo"
           onClick={() => {
-            // history.push("/");
+            history.push("/");
           }}
         />
       </div>

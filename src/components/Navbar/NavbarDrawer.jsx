@@ -15,7 +15,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 
 const useStyles = makeStyles({
   list: {
-    width: 220,
+    width: 250,
   },
   fullList: {
     width: "auto",
@@ -33,7 +33,7 @@ const theme = createTheme({
 const DrawerCartIcon = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Badge badgeContent={4} color="primary" style={{ marginLeft: "-5rem" }}>
+      <Badge badgeContent={4} color="primary" style={{ marginLeft: "-7.5rem" }}>
         <ShoppingDrawerCartIcon />
       </Badge>
     </ThemeProvider>
