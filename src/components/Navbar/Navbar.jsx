@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   createTheme,
   makeStyles,
@@ -56,9 +56,9 @@ const Navbar = () => {
         />
       </div>
       <div className="navlinks">
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/products">Products</a>
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+        <Link to="/products">Products</Link>
       </div>
       <div className="navmenu">
         <ThemeProvider theme={theme}>
