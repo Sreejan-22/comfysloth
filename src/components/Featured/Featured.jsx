@@ -4,8 +4,6 @@ import StyledButton from "../StyledButton/StyledButton";
 import featuredProducts from "../../utils/getFeaturedProducts";
 import "./Featured.scss";
 
-console.log(featuredProducts);
-
 const useStyles = makeStyles({
   allProducts: {
     fontWeight: "300",
