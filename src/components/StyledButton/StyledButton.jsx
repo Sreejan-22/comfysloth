@@ -9,7 +9,7 @@ const theme = createTheme({
   },
 });
 
-const StyledButton = ({ text, variant, size, className }) => {
+const StyledButton = ({ text, variant, size, className, onClickFn }) => {
   return (
     <ThemeProvider theme={theme}>
       <Button
@@ -18,6 +18,7 @@ const StyledButton = ({ text, variant, size, className }) => {
         color="primary"
         className={className}
         disableElevation
+        onClick={onClickFn}
       >
         {text}
       </Button>

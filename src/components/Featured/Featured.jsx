@@ -1,3 +1,4 @@
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import StyledButton from "../StyledButton/StyledButton";
 import featuredProducts from "../../utils/getFeaturedProducts";
@@ -13,6 +14,8 @@ const useStyles = makeStyles({
 
 const Featured = () => {
   const classes = useStyles();
+  const history = useHistory();
+
   return (
     <div className="featured">
       <h1>Featured Products</h1>
@@ -30,7 +33,11 @@ const Featured = () => {
           );
         })}
       </div>
-      <StyledButton text="All Products" className={classes.allProducts} />
+      <StyledButton
+        text="All Products"
+        className={classes.allProducts}
+        onClickFn={() => history.push("/products")}
+      />
     </div>
   );
 };

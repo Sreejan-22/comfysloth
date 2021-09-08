@@ -1,3 +1,4 @@
+import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import {
   createTheme,
@@ -24,6 +25,8 @@ const useStyles = makeStyles({
 
 const Intro = () => {
   const classes = useStyles();
+  const history = useHistory();
+
   return (
     <div className="intro-container">
       <div className="intro-description">
@@ -43,6 +46,7 @@ const Intro = () => {
             color="primary"
             disableElevation
             className={classes.shopNowBtn}
+            onClick={() => history.push("/products")}
           >
             Shop Now
           </Button>

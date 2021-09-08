@@ -1,11 +1,9 @@
-import { useState } from "react";
 import {
   makeStyles,
   createTheme,
   ThemeProvider,
 } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
 import ShoppingDrawerCartIcon from "@material-ui/icons/ShoppingCart";
 import Badge from "@material-ui/core/Badge";
 import List from "@material-ui/core/List";
