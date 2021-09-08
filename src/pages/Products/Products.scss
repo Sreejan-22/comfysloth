@@ -86,3 +86,29 @@
   outline: none;
   cursor: pointer;
 }
+
+.view-filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .view-icon {
+    border: 1px solid black;
+    border-radius: 2px;
+  }
+
+  .active {
+    background-color: black;
+    color: white;
+  }
+
+  span {
+    color: #324d67;
+  }
+
+  hr {
+    border: none;
+    flex-grow: 0.8;
+    border-top: 1px solid #bcccdc;
+  }
+}
