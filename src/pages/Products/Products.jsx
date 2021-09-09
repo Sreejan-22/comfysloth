@@ -131,6 +131,7 @@ const Products = () => {
                 image={item.image}
                 name={item.name}
                 price={item.price}
+                id={item.id}
                 key={item.id}
               />
             ))}
