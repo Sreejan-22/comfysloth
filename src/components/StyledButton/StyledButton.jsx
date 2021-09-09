@@ -29,6 +29,7 @@ const StyledButton = ({ text, variant, size, className, onClickFn }) => {
 StyledButton.defaultProps = {
   variant: "contained",
   size: "medium",
+  className: "",
 };
 
 export default StyledButton;

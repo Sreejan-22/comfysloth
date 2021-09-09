@@ -1,0 +1,41 @@
+.main-section {
+  min-height: calc(80vh - 10rem);
+  width: 100%;
+  padding: 4rem 8rem;
+}
+
+.backToProducts-btn {
+  margin-bottom: 3rem;
+}
+
+.pdt-details {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(300px, 1fr));
+  column-gap: 2rem;
+}
+
+.pdt-images {
+  display: flex;
+  flex-direction: column;
+
+  img {
+    object-fit: cover;
+    border-radius: 5px;
+  }
+}
+
+.small-images {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 10px;
+}
+
+.pdt-decscription {
+  display: flex;
+  flex-direction: column;
+
+  button {
+    align-self: flex-start;
+  }
+}
