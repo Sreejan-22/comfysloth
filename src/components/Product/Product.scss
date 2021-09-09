@@ -11,6 +11,7 @@ $brown: #ab7a5f;
     flex-grow: 1;
     height: 90%;
     transition: all 0.3s linear;
+    object-fit: cover;
   }
   img:hover {
     filter: brightness(60%);
