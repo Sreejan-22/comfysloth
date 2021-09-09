@@ -5,6 +5,7 @@ import ViewListIcon from "@material-ui/icons/ViewList";
 import Navbar from "../../components/Navbar/Navbar";
 import BreadCrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import Product from "../../components/Product/Product";
+import Footer from "../../components/Footer/Footer";
 import "./Products.scss";
 
 const breadcrumbArr = [
@@ -138,6 +139,7 @@ const Products = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
