@@ -92,9 +92,15 @@
   justify-content: space-between;
   align-items: center;
 
+  .view-icons {
+    display: flex;
+    align-items: center;
+  }
+
   .view-icon {
     border: 1px solid black;
     border-radius: 2px;
+    margin-right: 0.5rem;
   }
 
   .active {
@@ -110,5 +116,32 @@
     border: none;
     flex-grow: 0.8;
     border-top: 1px solid #bcccdc;
+  }
+
+  select {
+    border: none;
+    outline: none;
+    padding: 0.3rem;
+  }
+}
+
+.products {
+  width: 100%;
+  padding: 2rem 0rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(200px, 1fr));
+  grid-auto-rows: 220px;
+  gap: 3rem 1.5rem;
+}
+
+@media screen and (max-width: 1200px) {
+  .products {
+    grid-template-columns: repeat(2, minmax(200px, 1fr));
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .products {
+    grid-template-columns: minmax(200px, 1fr);
   }
 }

@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Slider from "@material-ui/core/Slider";
 import ViewModuleIcon from "@material-ui/icons/ViewModule";
 import ViewListIcon from "@material-ui/icons/ViewList";
 import Navbar from "../../components/Navbar/Navbar";
 import BreadCrumbs from "../../components/Breadcrumbs/Breadcrumbs";
+import Product from "../../components/Product/Product";
 import "./Products.scss";
 
 const breadcrumbArr = [
@@ -29,11 +30,20 @@ const categories = [
 
 const companies = ["All", "Marcos", "Liddy", "Ikea", "Caressa"];
 const sortBy = ["Price (Lowest)", "Price (Highest)", "Name(A-Z)", "Name(Z-A)"];
+const url = "https://course-api.com/react-store-products";
 
 const Products = () => {
   const [value, setValue] = useState(60000);
   const [free, setFree] = useState(false);
   const [gridView, setGridView] = useState(true);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => setProducts(data))
+      .catch((err) => console.log(err));
+  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -86,22 +96,24 @@ const Products = () => {
         </div>
         <div className="pdt-list">
           <div className="view-filters">
-            <ViewModuleIcon
-              className={`view-icon ${gridView ? "active" : ""}`}
-              onClick={() => {
-                if (!gridView) {
-                  setGridView(true);
-                }
-              }}
-            />
-            <ViewListIcon
-              className={`view-icon ${!gridView ? "active" : ""}`}
-              onClick={() => {
-                if (gridView) {
-                  setGridView(false);
-                }
-              }}
-            />
+            <div className="view-icons">
+              <ViewModuleIcon
+                className={`view-icon ${gridView ? "active" : ""}`}
+                onClick={() => {
+                  if (!gridView) {
+                    setGridView(true);
+                  }
+                }}
+              />
+              <ViewListIcon
+                className={`view-icon ${!gridView ? "active" : ""}`}
+                onClick={() => {
+                  if (gridView) {
+                    setGridView(false);
+                  }
+                }}
+              />
+            </div>
             <span>23 products found</span>
             <hr />
             <span>Sort By</span>
@@ -112,6 +124,16 @@ const Products = () => {
                 </option>
               ))}
             </select>
+          </div>
+          <div className="products">
+            {products.map((item) => (
+              <Product
+                image={item.image}
+                name={item.name}
+                price={item.price}
+                key={item.id}
+              />
+            ))}
           </div>
         </div>
       </div>

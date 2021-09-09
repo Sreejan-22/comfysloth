@@ -1,0 +1,26 @@
+$brown: #ab7a5f;
+
+.pdt {
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+
+  img {
+    border-radius: 5px;
+    flex-grow: 1;
+    height: 90%;
+    transition: all 0.3s linear;
+  }
+  img:hover {
+    filter: brightness(60%);
+  }
+
+  div {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: $brown;
+  }
+}
