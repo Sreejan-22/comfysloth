@@ -6,6 +6,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import BreadCrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import Footer from "../../components/Footer/Footer";
 import StyledButton from "../../components/StyledButton/StyledButton";
+import Loader from "../../components/Loader/Loader";
 import "./SingleProduct.scss";
 
 const breadcrumbArr = [
@@ -70,7 +71,12 @@ const SingleProduct = () => {
     <div>
       <Navbar />
       {loading ? (
-        <h1 style={{ textAlign: "center", marginTop: "10rem" }}>Loading...</h1>
+        <>
+          <br />
+          <br />
+          <br />
+          <Loader />
+        </>
       ) : (
         <>
           <BreadCrumbs arr={breadcrumbArr} />

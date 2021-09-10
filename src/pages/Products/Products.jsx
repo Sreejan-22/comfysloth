@@ -6,6 +6,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import BreadCrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import Product from "../../components/Product/Product";
 import Footer from "../../components/Footer/Footer";
+import Loader from "../../components/Loader/Loader";
 import "./Products.scss";
 
 const breadcrumbArr = [
@@ -38,11 +39,15 @@ const Products = () => {
   const [free, setFree] = useState(false);
   const [gridView, setGridView] = useState(true);
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(url)
       .then((res) => res.json())
-      .then((data) => setProducts(data))
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+      })
       .catch((err) => console.log(err));
   }, []);
 
@@ -126,17 +131,21 @@ const Products = () => {
               ))}
             </select>
           </div>
-          <div className="products">
-            {products.map((item) => (
-              <Product
-                image={item.image}
-                name={item.name}
-                price={item.price}
-                id={item.id}
-                key={item.id}
-              />
-            ))}
-          </div>
+          {loading ? (
+            <Loader />
+          ) : (
+            <div className="products">
+              {products.map((item) => (
+                <Product
+                  image={item.image}
+                  name={item.name}
+                  price={item.price}
+                  id={item.id}
+                  key={item.id}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
       <Footer />
