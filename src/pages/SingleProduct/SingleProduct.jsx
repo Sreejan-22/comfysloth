@@ -81,7 +81,7 @@ const SingleProduct = () => {
                 </div>
               </div>
               <div className="pdt-details">
-                <h1>{productData.name}</h1>
+                <h1 className="capitalize">{productData.name}</h1>
                 <br />
                 <h3 className="pdt-price">&#8377; {productData.price}</h3>
                 <br />
@@ -98,11 +98,11 @@ const SingleProduct = () => {
                   <span>Availability:&nbsp;&nbsp;&nbsp;</span>
                   <>{productData.stock ? "In stock" : "Out of stock"}</>
                 </div>
-                <div className="pdt-info">
+                <div className="pdt-info capitalize">
                   <span>SKU:&nbsp;&nbsp;&nbsp;</span>
                   <>{productData.id}</>
                 </div>
-                <div className="pdt-info">
+                <div className="pdt-info capitalize">
                   <span>Brand:&nbsp;&nbsp;&nbsp;</span>
                   <>{productData.company}</>
                 </div>

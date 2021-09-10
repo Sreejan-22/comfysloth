@@ -6,7 +6,7 @@ const BreadCrumbs = ({ arr }) => {
     <div className="breadcrumb">
       <h1>
         {arr.map((item) => (
-          <span key={item.text}>
+          <span key={item.text} className="capitalize">
             {item.path ? (
               <>
                 <Link to={item.path}>{item.text}</Link>&nbsp; / &nbsp;

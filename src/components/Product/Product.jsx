@@ -7,8 +7,10 @@ const Product = ({ image, name, price, id }) => {
   return (
     <div className="pdt" onClick={() => history.push(`/products/${id}`)}>
       <img src={image} alt="" />
-      <div>
-        <span style={{ color: "#102a42" }}>{name}</span>
+      <div style={{ fontWeight: "500" }}>
+        <span style={{ color: "#102a42" }} className="capitalize">
+          {name}
+        </span>
         <span>&#8377;{price}</span>
       </div>
     </div>
