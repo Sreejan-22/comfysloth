@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Slider from "@material-ui/core/Slider";
 import ViewModuleIcon from "@material-ui/icons/ViewModule";
 import ViewListIcon from "@material-ui/icons/ViewList";
@@ -40,11 +40,14 @@ const Products = () => {
   const [gridView, setGridView] = useState(true);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  // const [query, setQuery] = useState("");
+  const allProducts = useRef([]);
 
   useEffect(() => {
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
+        allProducts.current = data;
         setProducts(data);
         setLoading(false);
       })
@@ -55,6 +58,25 @@ const Products = () => {
     setValue(newValue);
   };
 
+  let debounceTimeout = 0;
+
+  const debounceSearch = (query) => {
+    if (debounceTimeout) {
+      clearTimeout(debounceTimeout);
+    }
+
+    debounceTimeout = setTimeout(() => {
+      if (query.length) {
+        const newProducts = allProducts.current.filter((item) => {
+          return item.name.includes(query.toLowerCase());
+        });
+        setProducts(newProducts);
+      } else {
+        setProducts(allProducts.current);
+      }
+    }, 300);
+  };
+
   return (
     <div>
       <Navbar />
@@ -62,7 +84,11 @@ const Products = () => {
       <div className="pdt-section">
         <div className="pdt-filters-wrapper">
           <form className="pdt-filters">
-            <input type="text" placeholder="Search" />
+            <input
+              type="text"
+              placeholder="Search"
+              onChange={(e) => debounceSearch(e.target.value)}
+            />
             <h3>Category</h3>
             <div className="pdt-categories">
               {categories.map((item) => (
@@ -120,7 +146,7 @@ const Products = () => {
                 }}
               />
             </div>
-            <span>23 products found</span>
+            <span>{products.length} products found</span>
             <hr />
             <span>Sort By</span>
             <select name="sortBy">

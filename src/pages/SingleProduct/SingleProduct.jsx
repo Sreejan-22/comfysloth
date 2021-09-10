@@ -37,7 +37,6 @@ const SingleProduct = () => {
   const [currImage, setCurrImage] = useState(null);
 
   useEffect(() => {
-    console.log(id);
     fetch(`https://course-api.com/react-store-single-product?id=${id}`)
       .then((res) => res.json())
       .then((data) => {
