@@ -33,6 +33,7 @@ const SingleProduct = () => {
   const [productData, setproductData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [count, setCount] = useState(1);
+  const [currImage, setCurrImage] = useState(null);
 
   useEffect(() => {
     console.log(id);
@@ -46,12 +47,24 @@ const SingleProduct = () => {
           });
         }
         setproductData(data);
+        setCurrImage(data.images[0].url);
         setLoading(false);
       })
       .catch((err) => console.log(err));
 
     return () => breadcrumbArr.pop();
   }, []);
+
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  const decrement = () => {
+    if (count === 0) {
+      return;
+    }
+    setCount(count - 1);
+  };
 
   return (
     <div>
@@ -69,14 +82,18 @@ const SingleProduct = () => {
             />
             <div className="main-content">
               <div className="pdt-images">
-                <img
-                  src={productData.images[0].url}
-                  alt=""
-                  className="big-img"
-                />
+                <img src={currImage} alt="" className="big-img" />
                 <div className="small-images">
                   {productData.images.map((item) => (
-                    <img src={item.url} alt="" key={item.id} />
+                    <img
+                      src={item.url}
+                      alt=""
+                      key={item.id}
+                      onClick={() => setCurrImage(item.url)}
+                      className={`${
+                        currImage === item.url ? "active-img" : null
+                      }`}
+                    />
                   ))}
                 </div>
               </div>
@@ -104,16 +121,20 @@ const SingleProduct = () => {
                 </div>
                 <div className="pdt-info capitalize">
                   <span>Brand:&nbsp;&nbsp;&nbsp;</span>
-                  <>{productData.company}</>
+                  <>{productData.company}</>q
                 </div>
                 <div className="pdt-count">
-                  <span style={{ position: "relative", top: "-10px" }}>_</span>
+                  <span
+                    style={{ position: "relative", top: "-10px" }}
+                    onClick={decrement}
+                  >
+                    _
+                  </span>
                   <div>{count}</div>
-                  <span>+</span>
+                  <span onClick={increment}>+</span>
                 </div>
                 <StyledButton
                   text="Add to Cart"
-                  // onClickFn={() => history.push("/products")}
                   className={`${classes.backToProducts}`}
                 />
               </div>
