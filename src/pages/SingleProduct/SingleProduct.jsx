@@ -112,7 +112,7 @@ const SingleProduct = () => {
                   <span>+</span>
                 </div>
                 <StyledButton
-                  text="Add to Card"
+                  text="Add to Cart"
                   // onClickFn={() => history.push("/products")}
                   className={`${classes.backToProducts}`}
                 />
