@@ -22,15 +22,15 @@ const breadcrumbArr = [
 
 const categories = [
   "All",
-  "Office",
-  "Living Room",
-  "Kitchen",
-  "Bedroom",
-  "Dining",
-  "Kids",
+  "office",
+  "living room",
+  "kitchen",
+  "bedroom",
+  "dining",
+  "kids",
 ];
 
-const companies = ["All", "Marcos", "Liddy", "Ikea", "Caressa"];
+const companies = ["All", "marcos", "liddy", "ikea", "caressa"];
 const sortBy = ["Price (Lowest)", "Price (Highest)", "Name(A-Z)", "Name(Z-A)"];
 const url = "https://course-api.com/react-store-products";
 
@@ -40,7 +40,7 @@ const Products = () => {
   const [gridView, setGridView] = useState(true);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  // const [query, setQuery] = useState("");
+  const [currCategory, setCurrCategory] = useState("All");
   const allProducts = useRef([]);
 
   useEffect(() => {
@@ -77,6 +77,20 @@ const Products = () => {
     }, 300);
   };
 
+  const filterByCategory = (e, category) => {
+    e.preventDefault();
+    if (category === "All") {
+      setCurrCategory(category);
+      setProducts(allProducts.current);
+    } else {
+      const newProducts = allProducts.current.filter(
+        (pdt) => pdt.category === category
+      );
+      setCurrCategory(category);
+      setProducts(newProducts);
+    }
+  };
+
   return (
     <div>
       <Navbar />
@@ -92,7 +106,13 @@ const Products = () => {
             <h3>Category</h3>
             <div className="pdt-categories">
               {categories.map((item) => (
-                <button key={item} className="curr-category">
+                <button
+                  key={item}
+                  className={`${
+                    currCategory === item ? "curr-category" : null
+                  } capitalize`}
+                  onClick={(e) => filterByCategory(e, item)}
+                >
                   {item}
                 </button>
               ))}
