@@ -43,6 +43,7 @@ const Products = () => {
   const [currCategory, setCurrCategory] = useState("All");
   const [currCompany, setCurrCompany] = useState("All");
   const allProducts = useRef([]);
+  const currProducts = useRef([]);
 
   useEffect(() => {
     fetch(url)
@@ -55,7 +56,7 @@ const Products = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  let debouncePriceTimer = 0;
+  // let debouncePriceTimer = 0;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -93,32 +94,44 @@ const Products = () => {
 
   const filterProducts = (e, category, company) => {
     e.preventDefault();
+    let newProducts = [];
     if (category === "All" && company === "All") {
-      setCurrCategory(category);
-      setCurrCompany(company);
-      setProducts(allProducts.current);
+      newProducts = allProducts.current;
     } else if (category !== "All" && company === "All") {
-      const newProducts = allProducts.current.filter(
+      newProducts = allProducts.current.filter(
         (pdt) => pdt.category === category
       );
-      setCurrCategory(category);
-      setCurrCompany(company);
-      setProducts(newProducts);
     } else if (category === "All" && company !== "All") {
-      const newProducts = allProducts.current.filter(
+      newProducts = allProducts.current.filter(
         (pdt) => pdt.company === company
       );
-      setCurrCategory(category);
-      setCurrCompany(company);
-      setProducts(newProducts);
     } else {
-      const newProducts = allProducts.current.filter(
+      newProducts = allProducts.current.filter(
         (pdt) => pdt.category === category && pdt.company === company
       );
-      setCurrCategory(category);
-      setCurrCompany(company);
-      setProducts(newProducts);
     }
+    setCurrCategory(category);
+    setCurrCompany(company);
+    setProducts(newProducts);
+  };
+
+  const freeShippingFilter = () => {
+    // if (!free) {
+    //   // currently not checked so the onchange event should filter products which have free shipping
+    //   const newProducts = products.filter((pdt) =>
+    //     pdt.hasOwnProperty("shipping")
+    //   );
+    //   currProducts.current = products;
+    //   setProducts(newProducts);
+    //   setFree(!free);
+    // } else {
+    //   const newProducts = allProducts.current.filter(
+    //     (pdt) => pdt.category === currCategory && pdt.company === currCompany
+    //   );
+    //   setProducts(newProducts);
+    //   setFree(!free);
+    // }
+    setFree(!free);
   };
 
   return (
@@ -174,7 +187,7 @@ const Products = () => {
               <input
                 type="checkbox"
                 name="freeShipping"
-                onChange={() => setFree(!free)}
+                onChange={freeShippingFilter}
               />
             </div>
           </form>
