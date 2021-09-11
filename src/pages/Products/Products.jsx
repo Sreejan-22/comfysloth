@@ -43,7 +43,6 @@ const Products = () => {
   const [currCategory, setCurrCategory] = useState("All");
   const [currCompany, setCurrCompany] = useState("All");
   const allProducts = useRef([]);
-  const currProducts = useRef([]);
 
   useEffect(() => {
     fetch(url)
@@ -95,6 +94,7 @@ const Products = () => {
   const filterProducts = (e, category, company) => {
     e.preventDefault();
     let newProducts = [];
+
     if (category === "All" && company === "All") {
       newProducts = allProducts.current;
     } else if (category !== "All" && company === "All") {
@@ -110,28 +110,33 @@ const Products = () => {
         (pdt) => pdt.category === category && pdt.company === company
       );
     }
+
+    if (free) {
+      newProducts = newProducts.filter((pdt) => pdt.hasOwnProperty("shipping"));
+    }
+
     setCurrCategory(category);
     setCurrCompany(company);
     setProducts(newProducts);
   };
 
-  const freeShippingFilter = () => {
-    // if (!free) {
-    //   // currently not checked so the onchange event should filter products which have free shipping
-    //   const newProducts = products.filter((pdt) =>
-    //     pdt.hasOwnProperty("shipping")
-    //   );
-    //   currProducts.current = products;
-    //   setProducts(newProducts);
-    //   setFree(!free);
-    // } else {
-    //   const newProducts = allProducts.current.filter(
-    //     (pdt) => pdt.category === currCategory && pdt.company === currCompany
-    //   );
-    //   setProducts(newProducts);
-    //   setFree(!free);
-    // }
-    setFree(!free);
+  const freeShippingFilter = (e) => {
+    if (!free) {
+      // currently not checked so the onchange event should filter products which have free shipping
+      const newProducts = products.filter((pdt) =>
+        pdt.hasOwnProperty("shipping")
+      );
+      setProducts(newProducts);
+      setFree(!free);
+    } else {
+      const newProducts = allProducts.current.filter(
+        (pdt) =>
+          (currCategory === "All" ? true : pdt.category === currCategory) &&
+          (currCompany === "All" ? true : pdt.company === currCompany)
+      );
+      setProducts(newProducts);
+      setFree(!free);
+    }
   };
 
   return (
