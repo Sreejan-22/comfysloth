@@ -41,6 +41,7 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currCategory, setCurrCategory] = useState("All");
+  const [currCompany, setCurrCompany] = useState("All");
   const allProducts = useRef([]);
 
   useEffect(() => {
@@ -54,8 +55,21 @@ const Products = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  let debouncePriceTimer = 0;
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    // if (debouncePriceTimer) {
+    //   clearTimeout(debouncePriceTimer);
+    // }
+    // debouncePriceTimer = setTimeout(() => {
+    //   // const newProducts = products.filter(
+    //   //   (pdt) => pdt.price >= 0 && pdt.price <= newValue
+    //   // );
+    //   // setProducts(newProducts);
+    //   console.log(newValue);
+    //   // setValue(newValue);
+    // }, 300);
   };
 
   let debounceTimeout = 0;
@@ -77,16 +91,32 @@ const Products = () => {
     }, 300);
   };
 
-  const filterByCategory = (e, category) => {
+  const filterProducts = (e, category, company) => {
     e.preventDefault();
-    if (category === "All") {
+    if (category === "All" && company === "All") {
       setCurrCategory(category);
+      setCurrCompany(company);
       setProducts(allProducts.current);
-    } else {
+    } else if (category !== "All" && company === "All") {
       const newProducts = allProducts.current.filter(
         (pdt) => pdt.category === category
       );
       setCurrCategory(category);
+      setCurrCompany(company);
+      setProducts(newProducts);
+    } else if (category === "All" && company !== "All") {
+      const newProducts = allProducts.current.filter(
+        (pdt) => pdt.company === company
+      );
+      setCurrCategory(category);
+      setCurrCompany(company);
+      setProducts(newProducts);
+    } else {
+      const newProducts = allProducts.current.filter(
+        (pdt) => pdt.category === category && pdt.company === company
+      );
+      setCurrCategory(category);
+      setCurrCompany(company);
       setProducts(newProducts);
     }
   };
@@ -109,16 +139,20 @@ const Products = () => {
                 <button
                   key={item}
                   className={`${
-                    currCategory === item ? "curr-category" : null
+                    currCategory === item ? "curr-category" : ""
                   } capitalize`}
-                  onClick={(e) => filterByCategory(e, item)}
+                  onClick={(e) => filterProducts(e, item, currCompany)}
                 >
                   {item}
                 </button>
               ))}
             </div>
             <h3>Company</h3>
-            <select name="company" className="company">
+            <select
+              name="company"
+              className="company capitalize"
+              onChange={(e) => filterProducts(e, currCategory, e.target.value)}
+            >
               {companies.map((item) => (
                 <option value={item} key={item}>
                   {item}
