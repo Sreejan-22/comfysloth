@@ -1,4 +1,15 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  productsSelector,
+  fetchProducts,
+  toggleView,
+  updateSort,
+  sortProducts,
+  updateFilters,
+  applyFilters,
+  clearFilters,
+} from "../../slices/products.slice";
 import Slider from "@material-ui/core/Slider";
 import ViewModuleIcon from "@material-ui/icons/ViewModule";
 import ViewListIcon from "@material-ui/icons/ViewList";
@@ -31,112 +42,58 @@ const categories = [
 ];
 
 const companies = ["All", "marcos", "liddy", "ikea", "caressa"];
-const sortBy = ["Price (Lowest)", "Price (Highest)", "Name(A-Z)", "Name(Z-A)"];
-const url = "https://course-api.com/react-store-products";
+const sortBy = [
+  { value: "price_lowest", text: "Price (Lowest)" },
+  { value: "price_highest", text: "Price (Highest)" },
+  { value: "name_a", text: "Name(A-Z)" },
+  { value: "name_z", text: "Name(Z-A)" },
+];
 
 const Products = () => {
-  const [value, setValue] = useState(60000);
-  const [free, setFree] = useState(false);
-  const [gridView, setGridView] = useState(true);
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [currCategory, setCurrCategory] = useState("All");
-  const [currCompany, setCurrCompany] = useState("All");
-  const allProducts = useRef([]);
+  const dispatch = useDispatch();
+  const {
+    allProducts,
+    productsLoading,
+    productsError,
+    gridView,
+    sort,
+    filteredProducts,
+    filters,
+  } = useSelector(productsSelector);
 
   useEffect(() => {
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        allProducts.current = data;
-        setProducts(data);
-        setLoading(false);
-      })
-      .catch((err) => console.log(err));
+    if (!filteredProducts.length) {
+      dispatch(fetchProducts());
+    }
   }, []);
 
-  // let debouncePriceTimer = 0;
+  useEffect(() => {
+    dispatch(sortProducts());
+    dispatch(applyFilters());
+  }, [sort, filters]);
+
+  // let debounceTimeout = 0;
+
+  // const debounceSearch = (query) => {
+  //   if (debounceTimeout) {
+  //     clearTimeout(debounceTimeout);
+  //   }
+
+  //   debounceTimeout = setTimeout(() => {
+  //     if (query.length) {
+  //       const newProducts = allProducts.current.filter((item) => {
+  //         return item.name.includes(query.toLowerCase());
+  //       });
+  //       setProducts(newProducts);
+  //     } else {
+  //       setProducts(allProducts.current);
+  //     }
+  //   }, 300);
+  // };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    // if (debouncePriceTimer) {
-    //   clearTimeout(debouncePriceTimer);
-    // }
-    // debouncePriceTimer = setTimeout(() => {
-    //   // const newProducts = products.filter(
-    //   //   (pdt) => pdt.price >= 0 && pdt.price <= newValue
-    //   // );
-    //   // setProducts(newProducts);
-    //   console.log(newValue);
-    //   // setValue(newValue);
-    // }, 300);
-  };
-
-  let debounceTimeout = 0;
-
-  const debounceSearch = (query) => {
-    if (debounceTimeout) {
-      clearTimeout(debounceTimeout);
-    }
-
-    debounceTimeout = setTimeout(() => {
-      if (query.length) {
-        const newProducts = allProducts.current.filter((item) => {
-          return item.name.includes(query.toLowerCase());
-        });
-        setProducts(newProducts);
-      } else {
-        setProducts(allProducts.current);
-      }
-    }, 300);
-  };
-
-  const filterProducts = (e, category, company) => {
-    e.preventDefault();
-    let newProducts = [];
-
-    if (category === "All" && company === "All") {
-      newProducts = allProducts.current;
-    } else if (category !== "All" && company === "All") {
-      newProducts = allProducts.current.filter(
-        (pdt) => pdt.category === category
-      );
-    } else if (category === "All" && company !== "All") {
-      newProducts = allProducts.current.filter(
-        (pdt) => pdt.company === company
-      );
-    } else {
-      newProducts = allProducts.current.filter(
-        (pdt) => pdt.category === category && pdt.company === company
-      );
-    }
-
-    if (free) {
-      newProducts = newProducts.filter((pdt) => pdt.hasOwnProperty("shipping"));
-    }
-
-    setCurrCategory(category);
-    setCurrCompany(company);
-    setProducts(newProducts);
-  };
-
-  const freeShippingFilter = (e) => {
-    if (!free) {
-      // currently not checked so the onchange event should filter products which have free shipping
-      const newProducts = products.filter((pdt) =>
-        pdt.hasOwnProperty("shipping")
-      );
-      setProducts(newProducts);
-      setFree(!free);
-    } else {
-      const newProducts = allProducts.current.filter(
-        (pdt) =>
-          (currCategory === "All" ? true : pdt.category === currCategory) &&
-          (currCompany === "All" ? true : pdt.company === currCompany)
-      );
-      setProducts(newProducts);
-      setFree(!free);
-    }
+    updateFilters(event);
   };
 
   return (
@@ -148,18 +105,20 @@ const Products = () => {
           <form className="pdt-filters">
             <input
               type="text"
+              name="searchText"
               placeholder="Search"
-              onChange={(e) => debounceSearch(e.target.value)}
+              // onChange={(e) => debounceSearch(e.target.value)}
             />
             <h3>Category</h3>
             <div className="pdt-categories">
               {categories.map((item) => (
                 <button
                   key={item}
+                  name="category"
                   className={`${
-                    currCategory === item ? "curr-category" : ""
+                    filters.category === item ? "curr-category" : ""
                   } capitalize`}
-                  onClick={(e) => filterProducts(e, item, currCompany)}
+                  onClick={updateFilters}
                 >
                   {item}
                 </button>
@@ -169,7 +128,7 @@ const Products = () => {
             <select
               name="company"
               className="company capitalize"
-              onChange={(e) => filterProducts(e, currCategory, e.target.value)}
+              onChange={updateFilters}
             >
               {companies.map((item) => (
                 <option value={item} key={item}>
@@ -179,61 +138,61 @@ const Products = () => {
             </select>
             <h3>Price</h3>
             <p className="price">&#8377;{value}</p>
-            <Slider
+            {/* <Slider
+              name="price"
               min={0}
               max={60000}
               value={value}
-              onChange={handleChange}
+              onChange={}
               aria-labelledby="continuous-slider"
+              style={{ width: "100px", marginBottom: "1.5rem" }}
+            /> */}
+            <input
+              type="range"
+              name="price"
+              id="price"
+              min="0"
+              max="60000"
+              onChange={updateFilters}
               style={{ width: "100px", marginBottom: "1.5rem" }}
             />
             <div className="free-shipping">
               <span>Free Shipping</span>
-              <input
-                type="checkbox"
-                name="freeShipping"
-                onChange={freeShippingFilter}
-              />
+              <input type="checkbox" name="shipping" onChange={updateFilters} />
             </div>
           </form>
-          <button className="clear-filters">Clear Filters</button>
+          <button className="clear-filters" onClick={clearFilters}>
+            Clear Filters
+          </button>
         </div>
         <div className="pdt-list">
           <div className="view-filters">
             <div className="view-icons">
               <ViewModuleIcon
                 className={`view-icon ${gridView ? "active" : ""}`}
-                onClick={() => {
-                  if (!gridView) {
-                    setGridView(true);
-                  }
-                }}
+                onClick={() => toggleView(true)}
               />
               <ViewListIcon
                 className={`view-icon ${!gridView ? "active" : ""}`}
-                onClick={() => {
-                  if (gridView) {
-                    setGridView(false);
-                  }
-                }}
+                onClick={() => toggleView(false)}
               />
             </div>
-            <span>{products.length} products found</span>
+            <span>{filteredProducts.length} products found</span>
             <hr />
             <span>Sort By</span>
-            <select name="sortBy">
+            <select name="sort" onChange={updateSort}>
               {sortBy.map((item) => (
-                <option value={item} key={item}>
-                  {item}
+                <option value={item.value} key={item.value}>
+                  {item.text}
                 </option>
               ))}
             </select>
           </div>
-          {loading ? (
+          {productsLoading ? (
             <Loader />
           ) : (
             <div className="products">
-              {products.map((item) => (
+              {filteredProducts.map((item) => (
                 <Product
                   image={item.image}
                   name={item.name}
