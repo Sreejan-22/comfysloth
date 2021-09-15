@@ -32,7 +32,7 @@ const breadcrumbArr = [
 ];
 
 const categories = [
-  "All",
+  "all",
   "office",
   "living room",
   "kitchen",
@@ -41,7 +41,7 @@ const categories = [
   "kids",
 ];
 
-const companies = ["All", "marcos", "liddy", "ikea", "caressa"];
+const companies = ["all", "marcos", "liddy", "ikea", "caressa"];
 const sortBy = [
   { value: "price_lowest", text: "Price (Lowest)" },
   { value: "price_highest", text: "Price (Highest)" },
@@ -60,7 +60,7 @@ const Products = () => {
     filteredProducts,
     filters,
   } = useSelector(productsSelector);
-  const [currPrice, setCurrPrice] = useState("60000");
+  // const [currPrice, setCurrPrice] = useState("60000");
 
   useEffect(() => {
     if (!filteredProducts.length) {
@@ -105,6 +105,7 @@ const Products = () => {
       <div className="pdt-section">
         <div className="pdt-filters-wrapper">
           <form className="pdt-filters">
+            {/* SEARCH */}
             <input
               type="text"
               name="searchText"
@@ -112,6 +113,7 @@ const Products = () => {
               // onChange={(e) => debounceSearch(e.target.value)}
             />
             <h3>Category</h3>
+            {/* CATEGORY */}
             <div className="pdt-categories">
               {categories.map((item) => (
                 <button
@@ -120,17 +122,24 @@ const Products = () => {
                   className={`${
                     filters.category === item ? "curr-category" : ""
                   } capitalize`}
-                  onClick={updateFilters}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    dispatch(updateFilters(e));
+                  }}
                 >
                   {item}
                 </button>
               ))}
             </div>
             <h3>Company</h3>
+            {/* COMPANY */}
             <select
               name="company"
               className="company capitalize"
-              onChange={updateFilters}
+              onChange={(e) => {
+                e.preventDefault();
+                dispatch(updateFilters(e));
+              }}
             >
               {companies.map((item) => (
                 <option value={item} key={item}>
@@ -139,54 +148,55 @@ const Products = () => {
               ))}
             </select>
             <h3>Price</h3>
-            <p className="price">&#8377;{currPrice}</p>
-            {/* <Slider
-              name="price"
-              min={0}
-              max={60000}
-              value={value}
-              onChange={}
-              aria-labelledby="continuous-slider"
-              style={{ width: "100px", marginBottom: "1.5rem" }}
-            /> */}
+            {/* PRICE */}
+            <p className="price">&#8377;{filters.price}</p>
             <input
               type="range"
               name="price"
               id="price"
               min="0"
-              max="60000"
-              value={currPrice}
+              max={filters.price}
+              value={filters.price}
               onChange={(e) => {
-                setCurrPrice(e.target.value);
-                updateFilters(e);
+                // setCurrPrice(e.target.value);
+                dispatch(updateFilters(e));
               }}
               style={{ width: "100px", marginBottom: "1.5rem" }}
             />
+            {/* SHIPPING */}
             <div className="free-shipping">
               <span>Free Shipping</span>
               <input type="checkbox" name="shipping" onChange={updateFilters} />
             </div>
           </form>
+          {/* CLEAR FILTERS */}
           <button className="clear-filters" onClick={clearFilters}>
             Clear Filters
           </button>
         </div>
         <div className="pdt-list">
           <div className="view-filters">
+            {/* CHANGE VIEW */}
             <div className="view-icons">
               <ViewModuleIcon
                 className={`view-icon ${gridView ? "active" : ""}`}
-                onClick={() => toggleView(true)}
+                onClick={() => dispatch(toggleView(true))}
               />
               <ViewListIcon
                 className={`view-icon ${!gridView ? "active" : ""}`}
-                onClick={() => toggleView(false)}
+                onClick={() => dispatch(toggleView(false))}
               />
             </div>
             <span>{filteredProducts.length} products found</span>
             <hr />
             <span>Sort By</span>
-            <select name="sort" onChange={updateSort}>
+            {/* SORT */}
+            <select
+              name="sort"
+              onChange={(e) => {
+                dispatch(updateSort(e.target.value));
+              }}
+            >
               {sortBy.map((item) => (
                 <option value={item.value} key={item.value}>
                   {item.text}

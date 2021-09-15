@@ -12,8 +12,8 @@ export const initialState = {
   filteredProducts: [],
   filters: {
     searchText: "",
-    category: "All",
-    company: "All",
+    category: "all",
+    company: "all",
     shipping: false,
     price: 0,
   },
@@ -75,21 +75,32 @@ const productsSlice = createSlice({
       state.gridView = payload;
     },
     updateSort: (state, { payload }) => {
-      const e = payload;
-      state.sort = e.target.value;
+      state.sort = payload;
     },
     sortProducts: (state) => {
-      let tempProducts = [...state.filteredProducts];
+      let tempProducts = state.filteredProducts;
       const sortBy = state.sort;
+      console.log(tempProducts);
+      console.log(sortBy);
       if (sortBy === "price_lowest") {
-        state.filteredProducts = tempProducts.sort((a, b) => a.price - b.price);
+        tempProducts = tempProducts.sort(
+          (a, b) => Number(a.price) - Number(b.price)
+        );
       } else if (sortBy === "price_highest") {
-        state.filteredProducts = tempProducts.sort((a, b) => b.price - a.price);
+        tempProducts = tempProducts.sort(
+          (a, b) => Number(b.price) - Number(a.price)
+        );
       } else if (sortBy === "name_a") {
-        state.filteredProducts = tempProducts.sort();
+        tempProducts = tempProducts.sort((a, b) =>
+          a.name.localeCompare(b.name)
+        );
       } else if (sortBy === "name_z") {
-        state.filteredProducts = tempProducts.sort().reverse();
+        tempProducts = tempProducts
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .reverse();
       }
+      console.log(tempProducts);
+      state.filteredProducts = tempProducts;
     },
     updateFilters: (state, { payload }) => {
       const e = payload;
@@ -99,10 +110,10 @@ const productsSlice = createSlice({
       //   // yet to be implemented
       // }
       if (name === "category") {
-        value = e.target.innerText;
+        value = e.target.innerText.toLowerCase();
       }
       if (name === "company") {
-        value = e.target.value;
+        value = e.target.value.toLowerCase();
       }
       if (name === "price") {
         value = Number(value);
@@ -110,17 +121,17 @@ const productsSlice = createSlice({
       if (name === "shipping") {
         value = e.target.checked;
       }
-      state.filters = { ...state.filters, name: value };
+      state.filters[name] = value;
     },
     applyFilters: (state) => {
       let tempProducts = [...state.allProducts];
       const { searchText, category, company, shipping, price } = state.filters;
       // search function is yet to be implemented
-      if (category !== "All") {
+      if (category !== "all") {
         tempProducts = tempProducts.filter((pdt) => pdt.category === category);
       }
 
-      if (company !== "All") {
+      if (company !== "all") {
         tempProducts = tempProducts.filter((pdt) => pdt.company === company);
       }
 
