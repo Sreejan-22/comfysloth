@@ -60,6 +60,7 @@ const Products = () => {
     filteredProducts,
     filters,
   } = useSelector(productsSelector);
+  const [currPrice, setCurrPrice] = useState("60000");
 
   useEffect(() => {
     if (!filteredProducts.length) {
@@ -91,10 +92,11 @@ const Products = () => {
   //   }, 300);
   // };
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-    updateFilters(event);
-  };
+  // const handleChange = (event, newValue) => {
+  //   setValue(newValue);
+  //   updateFilters(event);
+  // };
+  // const handleChange = (e) => {};
 
   return (
     <div>
@@ -137,7 +139,7 @@ const Products = () => {
               ))}
             </select>
             <h3>Price</h3>
-            <p className="price">&#8377;{value}</p>
+            <p className="price">&#8377;{currPrice}</p>
             {/* <Slider
               name="price"
               min={0}
@@ -153,7 +155,11 @@ const Products = () => {
               id="price"
               min="0"
               max="60000"
-              onChange={updateFilters}
+              value={currPrice}
+              onChange={(e) => {
+                setCurrPrice(e.target.value);
+                updateFilters(e);
+              }}
               style={{ width: "100px", marginBottom: "1.5rem" }}
             />
             <div className="free-shipping">

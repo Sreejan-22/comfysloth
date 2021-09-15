@@ -15,7 +15,7 @@ export const initialState = {
     category: "All",
     company: "All",
     shipping: false,
-    price: 60000,
+    price: 0,
   },
 };
 
@@ -27,12 +27,19 @@ const productsSlice = createSlice({
       state.productsLoading = true;
     },
     getProductsSuccess: (state, { payload }) => {
-      const featuredProducts = payload.filter(
+      let featuredProducts = payload.filter(
         (pdt) => pdt.hasOwnProperty("featured") && pdt.featured
       );
+      if (featuredProducts.length > 3) {
+        featuredProducts = featuredProducts.slice(0, 3);
+      }
+      const prices = payload.map((pdt) => pdt.price);
+      const maxPrice = Math.max(...prices);
+
       state.allProducts = payload;
       state.filteredProducts = payload;
       state.featuredProducts = featuredProducts;
+      state.filters.price = maxPrice;
       state.productsLoading = false;
       state.productsError = false;
     },
@@ -42,25 +49,27 @@ const productsSlice = createSlice({
     },
     loadFeaturedProducts: (state) => {
       state.featuredLoading = true;
-      state.productsLoading = true;
     },
     getFeaturedProductsSuccess: (state, { payload }) => {
-      const featuredProducts = payload.filter(
+      let featuredProducts = payload.filter(
         (pdt) => pdt.hasOwnProperty("featured") && pdt.featured
       );
+      if (featuredProducts.length > 3) {
+        featuredProducts = featuredProducts.slice(0, 3);
+      }
+      const prices = payload.map((pdt) => pdt.price);
+      const maxPrice = Math.max(...prices);
+
       state.allProducts = payload;
       state.filteredProducts = payload;
       state.featuredProducts = featuredProducts;
+      state.filters.price = maxPrice;
       state.featuredLoading = false;
       state.featuredError = false;
-      state.productsLoading = false;
-      state.productsError = false;
     },
     getFeaturedProductsFailure: (state) => {
-      state.productsLoading = false;
       state.featuredError = true;
       state.featuredLoading = false;
-      state.productsError = true;
     },
     toggleView: (state, { payload }) => {
       state.gridView = payload;
@@ -161,7 +170,7 @@ export const productsReducer = productsSlice.reducer;
 // async functions
 const url = "https://course-api.com/react-store-products";
 
-export const fetchProducts = () => {
+export function fetchProducts() {
   return async (dispatch) => {
     dispatch(loadProducts);
 
@@ -174,19 +183,19 @@ export const fetchProducts = () => {
       dispatch(getProductsFailure());
     }
   };
-};
+}
 
-export const fetchFeaturedProducts = () => {
+export function fetchFeaturedProducts() {
   return async (dispatch) => {
-    dispatch(loadProducts);
+    dispatch(loadFeaturedProducts);
 
     try {
       const res = await fetch(url);
       let data = await res.json();
       data = data.sort((a, b) => a.price - b.price); // sort from lowest price to highest
-      dispatch(getProductsSuccess(data));
+      dispatch(getFeaturedProductsSuccess(data));
     } catch (err) {
-      dispatch(getProductsFailure());
+      dispatch(getFeaturedProductsFailure());
     }
   };
-};
+}
