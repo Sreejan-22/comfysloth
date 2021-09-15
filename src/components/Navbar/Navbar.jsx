@@ -68,6 +68,7 @@ const Navbar = () => {
             disableElevation
             endIcon={<CartIcon />}
             className={classes.cartButton}
+            onClick={() => history.push("/cart")}
           >
             Cart
           </Button>
