@@ -17,6 +17,7 @@ export const initialState = {
     shipping: false,
     price: 0,
   },
+  maxPrice: 0,
 };
 
 const productsSlice = createSlice({
@@ -40,6 +41,7 @@ const productsSlice = createSlice({
       state.filteredProducts = payload;
       state.featuredProducts = featuredProducts;
       state.filters.price = maxPrice;
+      state.maxPrice = maxPrice;
       state.productsLoading = false;
       state.productsError = false;
     },
@@ -64,6 +66,7 @@ const productsSlice = createSlice({
       state.filteredProducts = payload;
       state.featuredProducts = featuredProducts;
       state.filters.price = maxPrice;
+      state.maxPrice = maxPrice;
       state.featuredLoading = false;
       state.featuredError = false;
     },
@@ -78,10 +81,10 @@ const productsSlice = createSlice({
       state.sort = payload;
     },
     sortProducts: (state) => {
-      let tempProducts = state.filteredProducts;
+      let tempProducts = [...state.filteredProducts];
       const sortBy = state.sort;
-      console.log(tempProducts);
-      console.log(sortBy);
+      // console.log(tempProducts);
+      // console.log(sortBy);
       if (sortBy === "price_lowest") {
         tempProducts = tempProducts.sort(
           (a, b) => Number(a.price) - Number(b.price)
@@ -99,7 +102,7 @@ const productsSlice = createSlice({
           .sort((a, b) => a.name.localeCompare(b.name))
           .reverse();
       }
-      console.log(tempProducts);
+      // console.log(tempProducts);
       state.filteredProducts = tempProducts;
     },
     updateFilters: (state, { payload }) => {
@@ -147,10 +150,10 @@ const productsSlice = createSlice({
     clearFilters: (state) => {
       state.filters = {
         searchText: "",
-        category: "All",
-        company: "All",
+        category: "all",
+        company: "all",
         shipping: false,
-        price: 60000,
+        price: state.maxPrice,
       };
     },
   },

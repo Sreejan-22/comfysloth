@@ -102,111 +102,118 @@ const Products = () => {
     <div>
       <Navbar />
       <BreadCrumbs arr={breadcrumbArr} />
-      <div className="pdt-section">
-        <div className="pdt-filters-wrapper">
-          <form className="pdt-filters">
-            {/* SEARCH */}
-            <input
-              type="text"
-              name="searchText"
-              placeholder="Search"
-              // onChange={(e) => debounceSearch(e.target.value)}
-            />
-            <h3>Category</h3>
-            {/* CATEGORY */}
-            <div className="pdt-categories">
-              {categories.map((item) => (
-                <button
-                  key={item}
-                  name="category"
-                  className={`${
-                    filters.category === item ? "curr-category" : ""
-                  } capitalize`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    dispatch(updateFilters(e));
-                  }}
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
-            <h3>Company</h3>
-            {/* COMPANY */}
-            <select
-              name="company"
-              className="company capitalize"
-              onChange={(e) => {
-                e.preventDefault();
-                dispatch(updateFilters(e));
-              }}
-            >
-              {companies.map((item) => (
-                <option value={item} key={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
-            <h3>Price</h3>
-            {/* PRICE */}
-            <p className="price">&#8377;{filters.price}</p>
-            <input
-              type="range"
-              name="price"
-              id="price"
-              min="0"
-              max={filters.price}
-              value={filters.price}
-              onChange={(e) => {
-                // setCurrPrice(e.target.value);
-                dispatch(updateFilters(e));
-              }}
-              style={{ width: "100px", marginBottom: "1.5rem" }}
-            />
-            {/* SHIPPING */}
-            <div className="free-shipping">
-              <span>Free Shipping</span>
-              <input type="checkbox" name="shipping" onChange={updateFilters} />
-            </div>
-          </form>
-          {/* CLEAR FILTERS */}
-          <button className="clear-filters" onClick={clearFilters}>
-            Clear Filters
-          </button>
-        </div>
-        <div className="pdt-list">
-          <div className="view-filters">
-            {/* CHANGE VIEW */}
-            <div className="view-icons">
-              <ViewModuleIcon
-                className={`view-icon ${gridView ? "active" : ""}`}
-                onClick={() => dispatch(toggleView(true))}
+      {productsLoading ? (
+        <Loader />
+      ) : (
+        <div className="pdt-section">
+          <div className="pdt-filters-wrapper">
+            <form className="pdt-filters">
+              {/* SEARCH */}
+              <input
+                type="text"
+                name="searchText"
+                placeholder="Search"
+                // onChange={(e) => debounceSearch(e.target.value)}
               />
-              <ViewListIcon
-                className={`view-icon ${!gridView ? "active" : ""}`}
-                onClick={() => dispatch(toggleView(false))}
+              <h3>Category</h3>
+              {/* CATEGORY */}
+              <div className="pdt-categories">
+                {categories.map((item) => (
+                  <button
+                    key={item}
+                    name="category"
+                    className={`${
+                      filters.category === item ? "curr-category" : ""
+                    } capitalize`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      dispatch(updateFilters(e));
+                    }}
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+              <h3>Company</h3>
+              {/* COMPANY */}
+              <select
+                name="company"
+                className="company capitalize"
+                onChange={(e) => {
+                  e.preventDefault();
+                  dispatch(updateFilters(e));
+                }}
+              >
+                {companies.map((item) => (
+                  <option value={item} key={item}>
+                    {item}
+                  </option>
+                ))}
+              </select>
+              <h3>Price</h3>
+              {/* PRICE */}
+              <p className="price">&#8377;{filters.price}</p>
+              <input
+                type="range"
+                name="price"
+                id="price"
+                min="0"
+                max={filters.price}
+                value={filters.price}
+                onChange={(e) => {
+                  // setCurrPrice(e.target.value);
+                  dispatch(updateFilters(e));
+                }}
+                style={{ width: "100px", marginBottom: "1.5rem" }}
               />
-            </div>
-            <span>{filteredProducts.length} products found</span>
-            <hr />
-            <span>Sort By</span>
-            {/* SORT */}
-            <select
-              name="sort"
-              onChange={(e) => {
-                dispatch(updateSort(e.target.value));
-              }}
+              {/* SHIPPING */}
+              <div className="free-shipping">
+                <span>Free Shipping</span>
+                <input
+                  type="checkbox"
+                  name="shipping"
+                  onChange={(e) => dispatch(updateFilters(e))}
+                />
+              </div>
+            </form>
+            {/* CLEAR FILTERS */}
+            <button
+              className="clear-filters"
+              onClick={() => dispatch(clearFilters())}
             >
-              {sortBy.map((item) => (
-                <option value={item.value} key={item.value}>
-                  {item.text}
-                </option>
-              ))}
-            </select>
+              Clear Filters
+            </button>
           </div>
-          {productsLoading ? (
-            <Loader />
-          ) : (
+          <div className="pdt-list">
+            <div className="view-filters">
+              {/* CHANGE VIEW */}
+              <div className="view-icons">
+                <ViewModuleIcon
+                  className={`view-icon ${gridView ? "active" : ""}`}
+                  onClick={() => dispatch(toggleView(true))}
+                />
+                <ViewListIcon
+                  className={`view-icon ${!gridView ? "active" : ""}`}
+                  onClick={() => dispatch(toggleView(false))}
+                />
+              </div>
+              <span>{filteredProducts.length} products found</span>
+              <hr />
+              <span>Sort By</span>
+              {/* SORT */}
+              <select
+                name="sort"
+                onChange={(e) => {
+                  dispatch(updateSort(e.target.value));
+                }}
+              >
+                {sortBy.map((item) => (
+                  <option value={item.value} key={item.value}>
+                    {item.text}
+                  </option>
+                ))}
+              </select>
+            </div>
             <div className="products">
               {filteredProducts.map((item) => (
                 <Product
@@ -218,9 +225,9 @@ const Products = () => {
                 />
               ))}
             </div>
-          )}
+          </div>
         </div>
-      </div>
+      )}
       <Footer />
     </div>
   );
