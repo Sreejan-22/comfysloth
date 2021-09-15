@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   productsSelector,
@@ -31,17 +31,17 @@ const breadcrumbArr = [
   },
 ];
 
-const categories = [
-  "all",
-  "office",
-  "living room",
-  "kitchen",
-  "bedroom",
-  "dining",
-  "kids",
-];
+// const categories = [
+//   "all",
+//   "office",
+//   "living room",
+//   "kitchen",
+//   "bedroom",
+//   "dining",
+//   "kids",
+// ];
 
-const companies = ["all", "marcos", "liddy", "ikea", "caressa"];
+// const companies = ["all", "marcos", "liddy", "ikea", "caressa"];
 const sortBy = [
   { value: "price_lowest", text: "Price (Lowest)" },
   { value: "price_highest", text: "Price (Highest)" },
@@ -52,13 +52,15 @@ const sortBy = [
 const Products = () => {
   const dispatch = useDispatch();
   const {
-    allProducts,
     productsLoading,
     productsError,
     gridView,
     sort,
+    categories,
+    companies,
     filteredProducts,
     filters,
+    maxPrice,
   } = useSelector(productsSelector);
   // const [currPrice, setCurrPrice] = useState("60000");
 
@@ -139,6 +141,7 @@ const Products = () => {
               <select
                 name="company"
                 className="company capitalize"
+                value={filters.company}
                 onChange={(e) => {
                   e.preventDefault();
                   dispatch(updateFilters(e));
@@ -158,7 +161,7 @@ const Products = () => {
                 name="price"
                 id="price"
                 min="0"
-                max={filters.price}
+                max={maxPrice}
                 value={filters.price}
                 onChange={(e) => {
                   // setCurrPrice(e.target.value);
@@ -172,6 +175,7 @@ const Products = () => {
                 <input
                   type="checkbox"
                   name="shipping"
+                  checked={filters.shipping}
                   onChange={(e) => dispatch(updateFilters(e))}
                 />
               </div>

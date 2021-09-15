@@ -10,6 +10,8 @@ export const initialState = {
   gridView: true,
   sort: "price_lowest",
   filteredProducts: [],
+  categories: [],
+  companies: [],
   filters: {
     searchText: "",
     category: "all",
@@ -34,12 +36,18 @@ const productsSlice = createSlice({
       if (featuredProducts.length > 3) {
         featuredProducts = featuredProducts.slice(0, 3);
       }
+      let categories = [...new Set(payload.map((pdt) => pdt.category))];
+      categories.unshift("all");
+      let companies = [...new Set(payload.map((pdt) => pdt.company))];
+      companies.unshift("all");
       const prices = payload.map((pdt) => pdt.price);
       const maxPrice = Math.max(...prices);
 
       state.allProducts = payload;
       state.filteredProducts = payload;
       state.featuredProducts = featuredProducts;
+      state.categories = categories;
+      state.companies = companies;
       state.filters.price = maxPrice;
       state.maxPrice = maxPrice;
       state.productsLoading = false;
