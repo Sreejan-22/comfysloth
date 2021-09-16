@@ -49,12 +49,12 @@ const Cart = () => {
             <div className="cart-item-price">₹774.75</div>
             <div className="cart-item-qty">
               <span
-                style={{ position: "relative", top: "-10px" }}
+                style={{ position: "relative", top: "-7px" }}
                 // onClick={decrement}
               >
                 _
               </span>
-              <div>1</div>
+              <div style={{ fontSize: "2rem" }}>1</div>
               <span /*onClick={increment}*/>+</span>
             </div>
             <h4 className="cart-item-subtotal">₹1549.50</h4>
@@ -71,12 +71,12 @@ const Cart = () => {
             <div className="cart-item-price">₹58,749.75</div>
             <div className="cart-item-qty">
               <span
-                style={{ position: "relative", top: "-10px" }}
+                style={{ position: "relative", top: "-7px" }}
                 // onClick={decrement}
               >
                 _
               </span>
-              <div>1</div>
+              <div style={{ fontSize: "2rem" }}>1</div>
               <span /*onClick={increment}*/>+</span>
             </div>
             <h4 className="cart-item-subtotal">₹1549.50</h4>
@@ -93,12 +93,12 @@ const Cart = () => {
             <div className="cart-item-price">₹774.75</div>
             <div className="cart-item-qty">
               <span
-                style={{ position: "relative", top: "-10px" }}
+                style={{ position: "relative", top: "-7px" }}
                 // onClick={decrement}
               >
                 _
               </span>
-              <div>1</div>
+              <div style={{ fontSize: "2rem" }}>1</div>
               <span /*onClick={increment}*/>+</span>
             </div>
             <h4 className="cart-item-subtotal">₹1549.50</h4>

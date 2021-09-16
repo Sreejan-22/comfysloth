@@ -18,3 +18,10 @@ footer {
     color: $brown;
   }
 }
+
+.footer-absolute {
+  position: absolute;
+  left: 0;
+  top: calc(100vh - 5rem);
+  margin-top: 0rem;
+}
