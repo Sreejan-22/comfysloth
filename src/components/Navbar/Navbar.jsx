@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { cartSelector } from "../../slices/cart.slice";
 import {
   createTheme,
   makeStyles,
@@ -24,9 +26,9 @@ const theme = createTheme({
   },
 });
 
-const CartIcon = () => {
+const CartIcon = ({ number }) => {
   return (
-    <Badge badgeContent={4} color="primary">
+    <Badge badgeContent={number} color="primary">
       <ShoppingCartIcon />
     </Badge>
   );
@@ -42,6 +44,10 @@ const Navbar = () => {
   const classes = useStyles();
   const history = useHistory();
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+  const { totalItems } = useSelector(cartSelector);
+
+  console.log(totalItems);
 
   return (
     <nav className="navbar">
@@ -66,7 +72,7 @@ const Navbar = () => {
             // variant="outlined"
             color="primary"
             disableElevation
-            endIcon={<CartIcon />}
+            endIcon={<CartIcon number={totalItems} />}
             className={classes.cartButton}
             onClick={() => history.push("/cart")}
           >

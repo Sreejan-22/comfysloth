@@ -1,7 +1,16 @@
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  cartSelector,
+  addToCart,
+  removeFromCart,
+  clearCart,
+} from "../../slices/cart.slice";
 import Navbar from "../../components/Navbar/Navbar";
 import BreadCrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import Footer from "../../components/Footer/Footer";
 import DeleteIcon from "@material-ui/icons/Delete";
+import StyledButton from "../../components/StyledButton/StyledButton";
 import "./Cart.scss";
 
 const breadcrumbArr = [
@@ -16,119 +25,109 @@ const breadcrumbArr = [
 ];
 
 const Cart = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { cartItems, shippingFee, subtotal } = useSelector(cartSelector);
+
+  <div style>
+    <h1>Your cart is empty</h1>
+    <button>Fill it</button>
+  </div>;
+
   return (
     <div>
       <Navbar />
       <BreadCrumbs arr={breadcrumbArr} />
       <div className="cart-wrapper">
         <div className="cart-container">
-          <div className="cart-titles-wrapper">
-            <div className="cart-titles">
-              <h5>Item</h5>
-              <h5>Price</h5>
-              <h5>Quantity</h5>
-              <h5>Subtotal</h5>
-              <span></span>
-            </div>
-            <hr
+          {!cartItems.length ? (
+            <div
               style={{
-                marginTop: "1rem",
-                marginBottom: "3rem",
-                borderTop: "1px solid #bcccdc",
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
               }}
-            />
-          </div>
-          <div className="cart-item">
-            <div className="cart-item-name">
-              <img
-                src="https://dl.airtable.com/.attachments/e2eef862d9b7a2fb0aa74fa24fbf97bb/25c4bc17/0-pexels-pixabay-462235.jpg"
-                alt=""
+            >
+              <h1>Your cart is empty</h1>
+              <br />
+              <StyledButton
+                text="Fill it"
+                onClickFn={() => history.push("/products")}
               />
-              <h4 className="capitalize">modern poster</h4>
             </div>
-            <div className="cart-item-price">₹774.75</div>
-            <div className="cart-item-qty">
-              <span
-                style={{ position: "relative", top: "-7px" }}
-                // onClick={decrement}
-              >
-                _
-              </span>
-              <div style={{ fontSize: "2rem" }}>1</div>
-              <span /*onClick={increment}*/>+</span>
-            </div>
-            <h4 className="cart-item-subtotal">₹1549.50</h4>
-            <DeleteIcon className="delete-cart-item" htmlColor="red" />
-          </div>
-          <div className="cart-item">
-            <div className="cart-item-name">
-              <img
-                src="https://dl.airtable.com/.attachments/4197bf0b9c139435ced145c2613b0b1d/1bbc5b2d/suade-armchair.jpeg"
-                alt=""
-              />
-              <h4 className="capitalize">suede armchair</h4>
-            </div>
-            <div className="cart-item-price">₹58,749.75</div>
-            <div className="cart-item-qty">
-              <span
-                style={{ position: "relative", top: "-7px" }}
-                // onClick={decrement}
-              >
-                _
-              </span>
-              <div style={{ fontSize: "2rem" }}>1</div>
-              <span /*onClick={increment}*/>+</span>
-            </div>
-            <h4 className="cart-item-subtotal">₹1549.50</h4>
-            <DeleteIcon className="delete-cart-item" htmlColor="red" />
-          </div>
-          <div className="cart-item">
-            <div className="cart-item-name">
-              <img
-                src="https://dl.airtable.com/.attachments/2581b1487fb0dd13c4abea9274f72f25/9304207f/pexels-dominika-roseclay-1139785.jpg"
-                alt=""
-              />
-              <h4 className="capitalize">wooden table</h4>
-            </div>
-            <div className="cart-item-price">₹774.75</div>
-            <div className="cart-item-qty">
-              <span
-                style={{ position: "relative", top: "-7px" }}
-                // onClick={decrement}
-              >
-                _
-              </span>
-              <div style={{ fontSize: "2rem" }}>1</div>
-              <span /*onClick={increment}*/>+</span>
-            </div>
-            <h4 className="cart-item-subtotal">₹1549.50</h4>
-            <DeleteIcon className="delete-cart-item" htmlColor="red" />
-          </div>
-          <hr style={{ borderTop: "1px solid #bcccdc" }} />
-          <div className="cart-other-links">
-            <button>Continue Shopping</button>
-            <button className="clear-cart-btn">Clear Shopping Cart</button>
-          </div>
-          <div className="cart-order-wrapper">
-            <div className="cart-order">
-              <div className="cart-order-content">
-                <h4>
-                  Subtotal <span>₹60149.50</span>
-                </h4>
-                <p>
-                  Shipping fee <span>₹133.50</span>
-                </p>
-                <hr />
-                <h3>
-                  Order Total <span>₹60283</span>
-                </h3>
+          ) : (
+            <>
+              <div className="cart-titles-wrapper">
+                <div className="cart-titles">
+                  <h5>Item</h5>
+                  <h5>Price</h5>
+                  <h5>Quantity</h5>
+                  <h5>Subtotal</h5>
+                  <span></span>
+                </div>
+                <hr
+                  style={{
+                    marginTop: "1rem",
+                    marginBottom: "3rem",
+                    borderTop: "1px solid #bcccdc",
+                  }}
+                />
               </div>
-              <button className="checkout-btn">Login</button>
-            </div>
-          </div>
+              {/* CART ITEMS */}
+              {cartItems.map((item) => (
+                <div className="cart-item" key={item.id}>
+                  <div className="cart-item-name">
+                    <img src={item.img} alt="" />
+                    <h4 className="capitalize">{item.name}</h4>
+                  </div>
+                  <div className="cart-item-price">&#8377;{item.price}</div>
+                  <div className="cart-item-qty">
+                    <span
+                      style={{ position: "relative", top: "-7px" }}
+                      // onClick={decrement}
+                    >
+                      _
+                    </span>
+                    <div style={{ fontSize: "2rem" }}>{item.qty}</div>
+                    <span /*onClick={increment}*/>+</span>
+                  </div>
+                  <h4 className="cart-item-subtotal">
+                    &#8377;{item.price * item.qty}
+                  </h4>
+                  <DeleteIcon className="delete-cart-item" htmlColor="red" />
+                </div>
+              ))}
+
+              <hr style={{ borderTop: "1px solid #bcccdc" }} />
+              <div className="cart-other-links">
+                <button onClick={() => history.push("/products")}>
+                  Continue Shopping
+                </button>
+                <button className="clear-cart-btn">Clear Shopping Cart</button>
+              </div>
+              <div className="cart-order-wrapper">
+                <div className="cart-order">
+                  <div className="cart-order-content">
+                    <h4>
+                      Subtotal <span>&#8377;{subtotal}</span>
+                    </h4>
+                    <p>
+                      Shipping fee <span>&#8377;{shippingFee}</span>
+                    </p>
+                    <hr />
+                    <h3>
+                      Order Total <span>&#8377;{subtotal + shippingFee}</span>
+                    </h3>
+                  </div>
+                  <button className="checkout-btn">Proceed to Checkout</button>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
-      <Footer />
+      <Footer absolute={!cartItems.length ? "true" : "false"} />
     </div>
   );
 };

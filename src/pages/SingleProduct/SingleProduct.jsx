@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { cartSelector, addToCart } from "../../slices/cart.slice";
 import { makeStyles } from "@material-ui/styles";
 import Rating from "@material-ui/lab/Rating";
 import Navbar from "../../components/Navbar/Navbar";
@@ -35,6 +37,8 @@ const SingleProduct = () => {
   const [loading, setLoading] = useState(true);
   const [count, setCount] = useState(1);
   const [currImage, setCurrImage] = useState(null);
+  const dispatch = useDispatch();
+  // const { addToCart } = useSelector(cartSelector);
 
   useEffect(() => {
     fetch(`https://course-api.com/react-store-single-product?id=${id}`)
@@ -64,6 +68,18 @@ const SingleProduct = () => {
       return;
     }
     setCount(count - 1);
+  };
+
+  const handleAddToCart = () => {
+    const item = {
+      name: productData.name,
+      id,
+      img: productData.images[0].url,
+      qty: count,
+      price: productData.price,
+      company: productData.company,
+    };
+    dispatch(addToCart(item));
   };
 
   return (
@@ -141,6 +157,10 @@ const SingleProduct = () => {
                 <StyledButton
                   text="Add to Cart"
                   className={`${classes.backToProducts}`}
+                  onClickFn={() => {
+                    handleAddToCart();
+                    history.push("/cart");
+                  }}
                 />
               </div>
             </div>
