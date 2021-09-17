@@ -45,11 +45,31 @@ const cartSlice = createSlice({
       state.subtotal = 0;
       state.totalItems = 0;
     },
+    increment: (state, { payload }) => {
+      const index = payload.index;
+      let tempCart = [...state.cartItems];
+      tempCart[index].qty += 1;
+      state.cartItems = tempCart;
+      state.subtotal += tempCart[index].price;
+      state.totalItems += 1;
+    },
+    decrement: (state, { payload }) => {
+      const item = payload.item;
+      const index = payload.index;
+      if (item.qty >= 1) {
+        let tempCart = [...state.cartItems];
+        tempCart[index].qty -= 1;
+        state.cartItems = tempCart;
+        state.subtotal -= tempCart[index].price;
+        state.totalItems -= 1;
+      }
+    },
   },
 });
 
 // actions
-export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, clearCart, increment, decrement } =
+  cartSlice.actions;
 
 // the selector
 export const cartSelector = (state) => state.cart;

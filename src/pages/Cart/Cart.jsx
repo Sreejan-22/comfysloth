@@ -2,9 +2,10 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   cartSelector,
-  addToCart,
   removeFromCart,
   clearCart,
+  increment,
+  decrement,
 } from "../../slices/cart.slice";
 import Navbar from "../../components/Navbar/Navbar";
 import BreadCrumbs from "../../components/Breadcrumbs/Breadcrumbs";
@@ -71,7 +72,7 @@ const Cart = () => {
                 />
               </div>
               {/* CART ITEMS */}
-              {cartItems.map((item) => (
+              {cartItems.map((item, index) => (
                 <div className="cart-item" key={item.id}>
                   <div className="cart-item-name">
                     <img src={item.img} alt="" />
@@ -81,17 +82,23 @@ const Cart = () => {
                   <div className="cart-item-qty">
                     <span
                       style={{ position: "relative", top: "-7px" }}
-                      // onClick={decrement}
+                      onClick={() => dispatch(decrement({ item, index }))}
                     >
                       _
                     </span>
                     <div style={{ fontSize: "2rem" }}>{item.qty}</div>
-                    <span /*onClick={increment}*/>+</span>
+                    <span onClick={() => dispatch(increment({ item, index }))}>
+                      +
+                    </span>
                   </div>
                   <h4 className="cart-item-subtotal">
                     &#8377;{item.price * item.qty}
                   </h4>
-                  <DeleteIcon className="delete-cart-item" htmlColor="red" />
+                  <DeleteIcon
+                    className="delete-cart-item"
+                    htmlColor="red"
+                    onClick={() => dispatch(removeFromCart(item))}
+                  />
                 </div>
               ))}
 
