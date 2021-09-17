@@ -163,6 +163,7 @@ const Products = () => {
                 min="0"
                 max={maxPrice}
                 value={filters.price}
+                id="price-range"
                 onChange={(e) => {
                   // setCurrPrice(e.target.value);
                   dispatch(updateFilters(e));
