@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { cartSelector } from "../../slices/cart.slice";
+import { useAuth0 } from "@auth0/auth0-react";
 import {
   createTheme,
   makeStyles,
@@ -47,6 +48,8 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const { totalItems } = useSelector(cartSelector);
 
+  const { loginWithRedirect, logout, user, isLoading } = useAuth0();
+
   return (
     <nav className="navbar">
       <div>
@@ -76,9 +79,26 @@ const Navbar = () => {
           >
             Cart
           </Button>
-          <Button variant="contained" color="primary" disableElevation>
-            Login
-          </Button>
+          {!isLoading && !user && (
+            <Button
+              variant="contained"
+              color="primary"
+              disableElevation
+              onClick={() => loginWithRedirect()}
+            >
+              Login
+            </Button>
+          )}
+          {!isLoading && user && (
+            <Button
+              variant="contained"
+              color="primary"
+              disableElevation
+              onClick={() => logout()}
+            >
+              Logout
+            </Button>
+          )}
         </ThemeProvider>
       </div>
       <div className="menu-icon-wrapper">
