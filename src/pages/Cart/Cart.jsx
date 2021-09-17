@@ -27,12 +27,8 @@ const breadcrumbArr = [
 const Cart = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { cartItems, shippingFee, subtotal } = useSelector(cartSelector);
-
-  <div style>
-    <h1>Your cart is empty</h1>
-    <button>Fill it</button>
-  </div>;
+  const cartState = useSelector(cartSelector);
+  const { cartItems, shippingFee, subtotal } = cartState;
 
   return (
     <div>
@@ -104,7 +100,12 @@ const Cart = () => {
                 <button onClick={() => history.push("/products")}>
                   Continue Shopping
                 </button>
-                <button className="clear-cart-btn">Clear Shopping Cart</button>
+                <button
+                  className="clear-cart-btn"
+                  onClick={() => dispatch(clearCart())}
+                >
+                  Clear Shopping Cart
+                </button>
               </div>
               <div className="cart-order-wrapper">
                 <div className="cart-order">

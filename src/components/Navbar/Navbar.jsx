@@ -47,8 +47,6 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const { totalItems } = useSelector(cartSelector);
 
-  console.log(totalItems);
-
   return (
     <nav className="navbar">
       <div>
@@ -92,7 +90,7 @@ const Navbar = () => {
           onClick={() => setIsOpen(true)}
         />
       </div>
-      <NavbarDrawer state={isOpen} setState={setIsOpen} />
+      <NavbarDrawer state={isOpen} setState={setIsOpen} number={totalItems} />
     </nav>
   );
 };

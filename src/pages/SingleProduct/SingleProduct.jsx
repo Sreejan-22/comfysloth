@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { cartSelector, addToCart } from "../../slices/cart.slice";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../slices/cart.slice";
 import { makeStyles } from "@material-ui/styles";
 import Rating from "@material-ui/lab/Rating";
 import Navbar from "../../components/Navbar/Navbar";

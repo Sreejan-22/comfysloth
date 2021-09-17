@@ -28,17 +28,21 @@ const theme = createTheme({
   },
 });
 
-const DrawerCartIcon = () => {
+const DrawerCartIcon = ({ number }) => {
   return (
     <ThemeProvider theme={theme}>
-      <Badge badgeContent={4} color="primary" style={{ marginLeft: "-7.5rem" }}>
+      <Badge
+        badgeContent={number}
+        color="primary"
+        style={{ marginLeft: "-7.5rem" }}
+      >
         <ShoppingDrawerCartIcon />
       </Badge>
     </ThemeProvider>
   );
 };
 
-export default function NavbarDrawer({ state, setState }) {
+export default function NavbarDrawer({ state, setState, number }) {
   const classes = useStyles();
   // const [state, setState] = useState(false);
 
@@ -71,7 +75,7 @@ export default function NavbarDrawer({ state, setState }) {
             <ListItemText primary={text} />
             {text === "Cart" ? (
               <ListItemIcon>
-                <DrawerCartIcon />
+                <DrawerCartIcon number={number} />
               </ListItemIcon>
             ) : null}
           </ListItem>

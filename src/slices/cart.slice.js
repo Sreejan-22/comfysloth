@@ -24,8 +24,10 @@ const cartSlice = createSlice({
     addToCart: (state, { payload }) => {
       let tempCart = [...state.cartItems];
       let totalItems = state.totalItems + payload.qty;
+      const subtotal = state.subtotal + payload.price * payload.qty;
       tempCart.push(payload);
       state.cartItems = tempCart;
+      state.subtotal = subtotal;
       state.totalItems = totalItems;
     },
     removeFromCart: (state, { payload }) => {
@@ -33,7 +35,9 @@ const cartSlice = createSlice({
       let tempCart = [...state.cartItems];
       tempCart = tempCart.filter((item) => item.id !== id);
       let totalItems = state.totalItems - payload.qty;
+      const subtotal = state.subtotal - payload.price * payload.qty;
       state.cartItems = tempCart;
+      state.subtotal = subtotal;
       state.totalItems = totalItems;
     },
     clearCart: (state) => {
