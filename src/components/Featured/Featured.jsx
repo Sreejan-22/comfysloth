@@ -10,6 +10,7 @@ import Loader from "../Loader/Loader";
 import { makeStyles } from "@material-ui/core/styles";
 import StyledButton from "../StyledButton/StyledButton";
 // import featuredProducts from "../../utils/getFeaturedProducts";
+import { notifyError } from "../../utils/notifyToasts";
 import "./Featured.scss";
 
 const useStyles = makeStyles({
@@ -31,33 +32,28 @@ const Featured = () => {
     }
   }, []);
 
+  if (featuredLoading) {
+    return <h1>Loading...</h1>;
+  }
+
   return (
     <div className="featured">
       <h1>Featured Products</h1>
       <div className="brown-line"></div>
       <div className="featured-pdts">
-        {featuredLoading ? (
-          <h1>Loading...</h1>
-        ) : (
-          featuredProducts.map((item, index) => {
-            return (
-              // <div key={`feat-pdt-${index}`} className="feat-pdt">
-              //   <img src={item.image} alt="" />
-              //   <div>
-              //     <span style={{ color: "black" }}>{item.name}</span>
-              //     <span>{item.price}</span>
-              //   </div>
-              // </div>
-              <Product
-                image={item.image}
-                name={item.name}
-                price={item.price}
-                id={item.id}
-                key={item.id}
-              />
-            );
-          })
-        )}
+        {featuredLoading && <h1>Loading...</h1>}
+        {featuredError && notifyError("Couldn't fetch featured products!!")}
+        {featuredProducts.map((item, index) => {
+          return (
+            <Product
+              image={item.image}
+              name={item.name}
+              price={item.price}
+              id={item.id}
+              key={item.id}
+            />
+          );
+        })}
       </div>
       <StyledButton
         text="All Products"

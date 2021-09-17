@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { cartSelector } from "../../slices/cart.slice";
+import { userSelector, setUser } from "../../slices/user.slice";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
   createTheme,
@@ -47,8 +48,16 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const { totalItems } = useSelector(cartSelector);
+  const { currUser } = useSelector(userSelector);
 
   const { loginWithRedirect, logout, user, isLoading } = useAuth0();
+
+  const handleLogin = async () => {
+    await loginWithRedirect();
+    setUser(user);
+  };
+
+  console.log(currUser);
 
   return (
     <nav className="navbar">
@@ -84,7 +93,7 @@ const Navbar = () => {
               variant="contained"
               color="primary"
               disableElevation
-              onClick={() => loginWithRedirect()}
+              onClick={async () => await handleLogin()}
             >
               Login
             </Button>
