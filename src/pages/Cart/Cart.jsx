@@ -128,7 +128,12 @@ const Cart = () => {
                       Order Total <span>&#8377;{subtotal + shippingFee}</span>
                     </h3>
                   </div>
-                  <button className="checkout-btn">Proceed to Checkout</button>
+                  <button
+                    className="checkout-btn"
+                    onClick={() => history.push("/checkout")}
+                  >
+                    Proceed to Checkout
+                  </button>
                 </div>
               </div>
             </>
