@@ -1,13 +1,6 @@
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { cartSelector } from "../../slices/cart.slice";
-import { loadStripe } from "@stripe/stripe-js";
-import {
-  CardElement,
-  Elements,
-  useElements,
-  useStripe,
-} from "@stripe/react-stripe-js";
 import StyledButton from "../../components/StyledButton/StyledButton";
 import Navbar from "../../components/Navbar/Navbar";
 import BreadCrumbs from "../../components/Breadcrumbs/Breadcrumbs";

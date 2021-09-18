@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { loadStripe } from "@stripe/stripe-js";
 import {
@@ -93,7 +93,7 @@ const StripeForm = () => {
       setTimeout(() => {
         dispatch(clearCart());
         history.push("/");
-      }, 5000);
+      }, 4000);
     }
   }, [paymentMethod]);
 
@@ -118,7 +118,6 @@ const StripeForm = () => {
     const payload = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),
-      // billing_details: billingDetails
     });
 
     setProcessing(false);

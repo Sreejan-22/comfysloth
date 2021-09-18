@@ -3,7 +3,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import StyledButton from "../../components/StyledButton/StyledButton";
 
-const Error = () => {
+const PageNotFound = () => {
   const history = useHistory();
   return (
     <div
@@ -38,4 +38,4 @@ const Error = () => {
   );
 };
 
-export default Error;
+export default PageNotFound;
