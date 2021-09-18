@@ -7,6 +7,7 @@ import {
   increment,
   decrement,
 } from "../../slices/cart.slice";
+import { useAuth0 } from "@auth0/auth0-react";
 import Navbar from "../../components/Navbar/Navbar";
 import BreadCrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import Footer from "../../components/Footer/Footer";
@@ -30,6 +31,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const cartState = useSelector(cartSelector);
   const { cartItems, shippingFee, subtotal } = cartState;
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
 
   return (
     <div>
@@ -128,12 +130,21 @@ const Cart = () => {
                       Order Total <span>&#8377;{subtotal + shippingFee}</span>
                     </h3>
                   </div>
-                  <button
-                    className="checkout-btn"
-                    onClick={() => history.push("/checkout")}
-                  >
-                    Proceed to Checkout
-                  </button>
+                  {isAuthenticated ? (
+                    <button
+                      className="checkout-btn"
+                      onClick={() => history.push("/checkout")}
+                    >
+                      Proceed to Checkout
+                    </button>
+                  ) : (
+                    <button
+                      className="checkout-btn"
+                      onClick={loginWithRedirect}
+                    >
+                      Login
+                    </button>
+                  )}
                 </div>
               </div>
             </>

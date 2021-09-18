@@ -1,3 +1,6 @@
+import { useEffect, useRef } from "react";
+import { useHistory } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 import {
   makeStyles,
   createTheme,
@@ -44,7 +47,20 @@ const DrawerCartIcon = ({ number }) => {
 
 export default function NavbarDrawer({ state, setState, number }) {
   const classes = useStyles();
-  // const [state, setState] = useState(false);
+  const history = useHistory();
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const menu = [
+    { text: "Home", onClickFn: () => history.push("/") },
+    { text: "About", onClickFn: () => history.push("/about") },
+    { text: "Products", onClickFn: () => history.push("/products") },
+    { text: "Cart", onClickFn: () => history.push("/cart") },
+    {
+      text: isAuthenticated ? "Logout" : "Login",
+      onClickFn: isAuthenticated ? () => logout() : () => loginWithRedirect(),
+    },
+  ];
+
+  useEffect(() => {}, [isAuthenticated]);
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -65,15 +81,16 @@ export default function NavbarDrawer({ state, setState, number }) {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {["Home", "About", "Cart", "Login"].map((text) => (
+        {menu.map((item) => (
           <ListItem
             button
-            key={text}
+            key={item.text}
             alignItems="center"
             style={{ display: "flex", justifyContent: "center" }}
+            onClick={item.onClickFn}
           >
-            <ListItemText primary={text} />
-            {text === "Cart" ? (
+            <ListItemText primary={item.text} />
+            {item.text === "Cart" ? (
               <ListItemIcon>
                 <DrawerCartIcon number={number} />
               </ListItemIcon>

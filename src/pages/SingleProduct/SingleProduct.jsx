@@ -165,6 +165,8 @@ const SingleProduct = () => {
               </div>
             </div>
           </div>
+          <br />
+          <br />
           <Footer />
         </>
       )}
