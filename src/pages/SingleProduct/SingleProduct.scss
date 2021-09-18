@@ -120,6 +120,7 @@
 
 @media screen and (max-width: 768px) {
   .main-section {
+    min-height: calc(85vh - 10rem);
     padding: 4rem 1rem;
     margin-bottom: 7rem;
 
@@ -135,15 +136,21 @@
 
   .big-img {
     height: 400px;
+    padding-bottom: 1rem;
   }
 
   .small-images {
-    grid-auto-rows: 50px;
+    grid-auto-rows: 70px;
+    margin-top: 0;
   }
 }
 
 @media screen and (max-width: 576px) {
   .main-section {
     margin-bottom: 15rem;
+  }
+
+  .small-images {
+    grid-auto-rows: 50px;
   }
 }

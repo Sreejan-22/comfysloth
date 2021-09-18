@@ -174,10 +174,10 @@ const Products = () => {
                   className={`view-icon ${gridView ? "active" : ""}`}
                   onClick={() => dispatch(toggleView(true))}
                 />
-                <ViewListIcon
+                {/* <ViewListIcon
                   className={`view-icon ${!gridView ? "active" : ""}`}
                   onClick={() => dispatch(toggleView(false))}
-                />
+                /> */}
               </div>
               <span>{filteredProducts.length} products found</span>
               <hr className="view-filters-line" />
