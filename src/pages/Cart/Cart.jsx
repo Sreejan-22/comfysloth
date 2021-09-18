@@ -76,9 +76,15 @@ const Cart = () => {
               {/* CART ITEMS */}
               {cartItems.map((item, index) => (
                 <div className="cart-item" key={item.id}>
-                  <div className="cart-item-name">
+                  <div className="cart-item-desc">
                     <img src={item.img} alt="" />
-                    <h4 className="capitalize">{item.name}</h4>
+                    <h4 className="cart-item-name capitalize">{item.name}</h4>
+                    <div className="cart-item-info-sm">
+                      <h4 className="capitalize">{item.name}</h4>
+                      <div className="cart-item-price-sm">
+                        &#8377;{item.price}
+                      </div>
+                    </div>
                   </div>
                   <div className="cart-item-price">&#8377;{item.price}</div>
                   <div className="cart-item-qty">
@@ -88,7 +94,7 @@ const Cart = () => {
                     >
                       _
                     </span>
-                    <div style={{ fontSize: "2rem" }}>{item.qty}</div>
+                    <div className="cart-item-qty-info">{item.qty}</div>
                     <span onClick={() => dispatch(increment({ item, index }))}>
                       +
                     </span>
