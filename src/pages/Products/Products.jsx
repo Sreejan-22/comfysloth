@@ -180,8 +180,8 @@ const Products = () => {
                 />
               </div>
               <span>{filteredProducts.length} products found</span>
-              <hr />
-              <span>Sort By</span>
+              <hr className="view-filters-line" />
+              <span className="sort-by-text">Sort By</span>
               {/* SORT */}
               <select
                 name="sort"
