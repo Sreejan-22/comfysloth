@@ -30,17 +30,6 @@ const breadcrumbArr = [
   },
 ];
 
-// const categories = [
-//   "all",
-//   "office",
-//   "living room",
-//   "kitchen",
-//   "bedroom",
-//   "dining",
-//   "kids",
-// ];
-
-// const companies = ["all", "marcos", "liddy", "ikea", "caressa"];
 const sortBy = [
   { value: "price_lowest", text: "Price (Lowest)" },
   { value: "price_highest", text: "Price (Highest)" },
@@ -61,7 +50,6 @@ const Products = () => {
     filters,
     maxPrice,
   } = useSelector(productsSelector);
-  // const [currPrice, setCurrPrice] = useState("60000");
 
   useEffect(() => {
     if (!filteredProducts.length) {
@@ -74,30 +62,18 @@ const Products = () => {
     dispatch(applyFilters());
   }, [sort, filters]);
 
-  // let debounceTimeout = 0;
+  let debounceTimeout = 0;
 
-  // const debounceSearch = (query) => {
-  //   if (debounceTimeout) {
-  //     clearTimeout(debounceTimeout);
-  //   }
+  const debounceSearch = (e) => {
+    if (debounceTimeout) {
+      clearTimeout(debounceTimeout);
+    }
 
-  //   debounceTimeout = setTimeout(() => {
-  //     if (query.length) {
-  //       const newProducts = allProducts.current.filter((item) => {
-  //         return item.name.includes(query.toLowerCase());
-  //       });
-  //       setProducts(newProducts);
-  //     } else {
-  //       setProducts(allProducts.current);
-  //     }
-  //   }, 300);
-  // };
-
-  // const handleChange = (event, newValue) => {
-  //   setValue(newValue);
-  //   updateFilters(event);
-  // };
-  // const handleChange = (e) => {};
+    debounceTimeout = setTimeout(() => {
+      console.log(e.target.value);
+      dispatch(updateFilters(e));
+    }, 300);
+  };
 
   return (
     <div>
@@ -114,7 +90,9 @@ const Products = () => {
                 type="text"
                 name="searchText"
                 placeholder="Search"
-                // onChange={(e) => debounceSearch(e.target.value)}
+                onChange={(e) => {
+                  debounceSearch(e);
+                }}
               />
               <h3>Category</h3>
               {/* CATEGORY */}

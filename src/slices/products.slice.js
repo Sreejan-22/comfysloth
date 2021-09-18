@@ -123,9 +123,10 @@ const productsSlice = createSlice({
       const e = payload;
       let name = e.target.name;
       let value = e.target.value;
-      // if (name === "searchText") {
-      //   // yet to be implemented
-      // }
+
+      if (name === "searchText") {
+        value = e.target.value.toLowerCase();
+      }
       if (name === "category") {
         value = e.target.innerText.toLowerCase();
       }
@@ -143,7 +144,13 @@ const productsSlice = createSlice({
     applyFilters: (state) => {
       let tempProducts = [...state.allProducts];
       const { searchText, category, company, shipping, price } = state.filters;
-      // search function is yet to be implemented
+
+      if (searchText.length) {
+        tempProducts = tempProducts.filter((pdt) =>
+          pdt.name.includes(searchText)
+        );
+      }
+
       if (category !== "all") {
         tempProducts = tempProducts.filter((pdt) => pdt.category === category);
       }
