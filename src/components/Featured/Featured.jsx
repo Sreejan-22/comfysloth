@@ -11,7 +11,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import StyledButton from "../StyledButton/StyledButton";
 // import featuredProducts from "../../utils/getFeaturedProducts";
 import { notifyError } from "../../utils/notifyToasts";
-// import { useAuth0 } from "@auth0/auth0-react";
 import "./Featured.scss";
 
 const useStyles = makeStyles({
@@ -26,14 +25,11 @@ const Featured = () => {
   const dispatch = useDispatch();
   const { featuredProducts, featuredLoading, featuredError } =
     useSelector(productsSelector);
-  // const { isAuthenticated, user } = useAuth0();
 
   useEffect(() => {
     if (!featuredProducts.length) {
       dispatch(fetchFeaturedProducts());
     }
-    // console.log(isAuthenticated);
-    // console.log(user);
   }, []);
 
   if (featuredLoading) {

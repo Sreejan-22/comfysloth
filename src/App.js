@@ -1,7 +1,4 @@
-import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { userSelector, setUser } from "./slices/user.slice";
 import { useAuth0 } from "@auth0/auth0-react";
 import Home from "./pages/Home/Home.jsx";
 import Products from "./pages/Products/Products.jsx";
@@ -15,13 +12,7 @@ import Loader from "./components/Loader/Loader";
 import "./App.css";
 
 function App() {
-  const { currUser } = useSelector(userSelector);
-  const { loginWithRedirect, logout, user, isLoading } = useAuth0();
-
-  useEffect(() => {
-    setUser(user);
-  }, [user]);
-
+  const { isLoading } = useAuth0();
   if (isLoading) {
     return <Loader />;
   }

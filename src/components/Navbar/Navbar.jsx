@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { cartSelector } from "../../slices/cart.slice";
-import { userSelector, setUser } from "../../slices/user.slice";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
   createTheme,
@@ -46,15 +45,9 @@ const Navbar = () => {
   const classes = useStyles();
   const history = useHistory();
   const [isOpen, setIsOpen] = useState(false);
-  const dispatch = useDispatch();
   const { totalItems } = useSelector(cartSelector);
-  // const { currUser } = useSelector(userSelector);
 
   const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
-
-  // useEffect(() => {
-
-  // }, [isAuthenticated]);
 
   return (
     <nav className="navbar">

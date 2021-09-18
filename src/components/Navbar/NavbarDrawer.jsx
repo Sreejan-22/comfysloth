@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
@@ -59,8 +58,6 @@ export default function NavbarDrawer({ state, setState, number }) {
       onClickFn: isAuthenticated ? () => logout() : () => loginWithRedirect(),
     },
   ];
-
-  useEffect(() => {}, [isAuthenticated]);
 
   const toggleDrawer = (open) => (event) => {
     if (

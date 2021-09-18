@@ -10,7 +10,6 @@ import {
   applyFilters,
   clearFilters,
 } from "../../slices/products.slice";
-import Slider from "@material-ui/core/Slider";
 import ViewModuleIcon from "@material-ui/icons/ViewModule";
 import ViewListIcon from "@material-ui/icons/ViewList";
 import Navbar from "../../components/Navbar/Navbar";
