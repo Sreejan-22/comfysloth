@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { cartSelector } from "../../slices/cart.slice";
@@ -48,16 +48,13 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const { totalItems } = useSelector(cartSelector);
-  const { currUser } = useSelector(userSelector);
+  // const { currUser } = useSelector(userSelector);
 
-  const { loginWithRedirect, logout, user, isLoading } = useAuth0();
+  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
 
-  const handleLogin = async () => {
-    await loginWithRedirect();
-    setUser(user);
-  };
+  // useEffect(() => {
 
-  console.log(currUser);
+  // }, [isAuthenticated]);
 
   return (
     <nav className="navbar">
@@ -88,22 +85,22 @@ const Navbar = () => {
           >
             Cart
           </Button>
-          {!isLoading && !user && (
+          {!isAuthenticated && (
             <Button
               variant="contained"
               color="primary"
               disableElevation
-              onClick={async () => await handleLogin()}
+              onClick={loginWithRedirect}
             >
               Login
             </Button>
           )}
-          {!isLoading && user && (
+          {isAuthenticated && (
             <Button
               variant="contained"
               color="primary"
               disableElevation
-              onClick={() => logout()}
+              onClick={logout}
             >
               Logout
             </Button>
