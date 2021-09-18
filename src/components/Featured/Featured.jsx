@@ -33,7 +33,7 @@ const Featured = () => {
   }, []);
 
   if (featuredLoading) {
-    return <h1>Loading...</h1>;
+    return <Loader />;
   }
 
   return (
@@ -41,7 +41,7 @@ const Featured = () => {
       <h1>Featured Products</h1>
       <div className="brown-line"></div>
       <div className="featured-pdts">
-        {featuredLoading && <h1>Loading...</h1>}
+        {featuredLoading && <Loader />}
         {featuredError && notifyError("Couldn't fetch featured products!!")}
         {featuredProducts.map((item, index) => {
           return (

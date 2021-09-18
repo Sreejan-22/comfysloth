@@ -65,6 +65,7 @@ const Navbar = () => {
         <Link to="/">Home</Link>
         <Link to="/about">About</Link>
         <Link to="/products">Products</Link>
+        {isAuthenticated && <Link to="/checkout">Checkout</Link>}
       </div>
       <div className="navmenu">
         <ThemeProvider theme={theme}>

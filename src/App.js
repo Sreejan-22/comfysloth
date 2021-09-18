@@ -12,7 +12,7 @@ import Loader from "./components/Loader/Loader";
 import "./App.css";
 
 function App() {
-  const { isLoading } = useAuth0();
+  const { isLoading, isAuthenticated, loginWithRedirect } = useAuth0();
   if (isLoading) {
     return <Loader />;
   }
@@ -25,7 +25,9 @@ function App() {
           <Route path="/products" component={Products} />
           <Route path="/about" component={About} />
           <Route path="/cart" component={Cart} />
-          <Route path="/checkout" component={Checkout} />
+          <Route path="/checkout">
+            {isAuthenticated ? <Checkout /> : loginWithRedirect}
+          </Route>
           <Route exact path="/" component={Home} />
           <Route path="/" component={Error} />
         </Switch>

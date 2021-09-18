@@ -94,6 +94,16 @@ export default function NavbarDrawer({ state, setState, number }) {
             ) : null}
           </ListItem>
         ))}
+        {isAuthenticated && (
+          <ListItem
+            button
+            alignItems="center"
+            style={{ display: "flex", justifyContent: "center" }}
+            onClick={() => history.push("/checkout")}
+          >
+            <ListItemText primary="Checkout" />
+          </ListItem>
+        )}
       </List>
     </div>
   );
