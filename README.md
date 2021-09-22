@@ -1,6 +1,6 @@
 # ComfySloth
 
-An online furniture store where you can buy furniture of impeccable quality and aesthetic design.
+An online furniture store where you can buy furniture of impeccable quality and elegant design.
 
 ### Features
 
