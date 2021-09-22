@@ -1,3 +1,16 @@
-### An ecommerce application built using React.js
+# ComfySloth
 
-Tech Stack - React.js, Material UI, Redux
+An online furniture store where you can buy furniture of impeccable quality and aesthetic design.
+
+### Features
+
+- Search and filter products
+- Add products to cart, checkout, and make payment by entering your card details
+
+Test Account Credentials
+
+email: test@test.com & password: Test123@
+
+### Tech Stack
+
+React.js, SASS, Material UI, Material Icons, Redux, Auth0, Stripe
