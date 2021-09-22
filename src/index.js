@@ -5,7 +5,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import persistReducer from "redux-persist/es/persistReducer";
-import thunk from "redux-thunk";
 import { PersistGate } from "redux-persist/integration/react";
 import persistStore from "redux-persist/es/persistStore";
 import App from "./App";
@@ -13,13 +12,6 @@ import { productsReducer } from "./slices/products.slice";
 import { cartReducer } from "./slices/cart.slice";
 import Auth0ProviderWithHistory from "./Auth0Provider";
 import "./index.css";
-
-// const store = configureStore({
-//   reducer: {
-//     products: productsReducer,
-//     cart: cartReducer,
-//   },
-// });
 
 const reducers = combineReducers({
   products: productsReducer,
@@ -29,7 +21,7 @@ const reducers = combineReducers({
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["products"]
+  blacklist: ["products"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);
@@ -37,7 +29,6 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 const store = configureStore({
   reducer: persistedReducer,
   devTools: process.env.NODE_ENV !== "production",
-  // middleware: [thunk],
 });
 
 let persistor = persistStore(store);
