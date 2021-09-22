@@ -1,5 +1,7 @@
+import { useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
 import { cartSelector } from "../../slices/cart.slice";
 import StyledButton from "../../components/StyledButton/StyledButton";
 import Navbar from "../../components/Navbar/Navbar";
@@ -22,6 +24,7 @@ const breadcrumbArr = [
 const Checkout = () => {
   const history = useHistory();
   const { cartItems, subtotal, shippingFee } = useSelector(cartSelector);
+  const { user } = useAuth0();
 
   return (
     <div>
@@ -60,7 +63,7 @@ const Checkout = () => {
             <br />
             <br />
             <br />
-            <h1 style={{ color: "#102a42" }}>Hello, User</h1>
+            <h1 style={{ color: "#102a42" }}>Hello, {user.nickname}</h1>
             <p
               style={{
                 letterSpacing: "1px",

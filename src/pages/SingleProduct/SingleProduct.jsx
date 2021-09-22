@@ -38,7 +38,6 @@ const SingleProduct = () => {
   const [count, setCount] = useState(1);
   const [currImage, setCurrImage] = useState(null);
   const dispatch = useDispatch();
-  // const { addToCart } = useSelector(cartSelector);
 
   useEffect(() => {
     fetch(`https://course-api.com/react-store-single-product?id=${id}`)

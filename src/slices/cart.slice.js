@@ -25,7 +25,16 @@ const cartSlice = createSlice({
       let tempCart = [...state.cartItems];
       let totalItems = state.totalItems + payload.qty;
       const subtotal = state.subtotal + payload.price * payload.qty;
-      tempCart.push(payload);
+      let commonItems = tempCart.filter((item) => item.id === payload.id);
+      if (!commonItems.length) {
+        tempCart.push(payload);
+      } else {
+        tempCart.forEach((item, index, array) => {
+          if (item.id === payload.id) {
+            array[index].qty += payload.qty;
+          }
+        });
+      }
       state.cartItems = tempCart;
       state.subtotal = subtotal;
       state.totalItems = totalItems;
