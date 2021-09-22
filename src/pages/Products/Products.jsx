@@ -11,7 +11,7 @@ import {
   clearFilters,
 } from "../../slices/products.slice";
 import ViewModuleIcon from "@material-ui/icons/ViewModule";
-import ViewListIcon from "@material-ui/icons/ViewList";
+// import ViewListIcon from "@material-ui/icons/ViewList";
 import Navbar from "../../components/Navbar/Navbar";
 import BreadCrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import Product from "../../components/Product/Product";
@@ -41,7 +41,7 @@ const Products = () => {
   const dispatch = useDispatch();
   const {
     productsLoading,
-    productsError,
+    // productsError,
     gridView,
     sort,
     categories,
