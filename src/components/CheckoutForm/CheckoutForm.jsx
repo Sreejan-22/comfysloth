@@ -9,7 +9,6 @@ import {
 } from "@stripe/react-stripe-js";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../../slices/cart.slice";
-import StyledButton from "../StyledButton/StyledButton";
 import "./CheckoutForm.scss";
 
 const CARD_OPTIONS = {
@@ -129,13 +128,6 @@ const StripeForm = () => {
         Your payment was successful! <br />
         Redirecting you to Home page
       </div>
-      <StyledButton
-        text="Go to Home page"
-        onClickFn={() => {
-          dispatch(clearCart());
-          history.push("/");
-        }}
-      />
     </div>
   ) : (
     <form className="Form" onSubmit={handleSubmit}>
