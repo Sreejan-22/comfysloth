@@ -82,7 +82,7 @@ const StripeForm = () => {
       setTimeout(() => {
         dispatch(clearCart());
         history.push("/");
-      }, 4000);
+      }, 3000);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -131,7 +131,10 @@ const StripeForm = () => {
       </div>
       <StyledButton
         text="Go to Home page"
-        onClickFn={() => history.push("/")}
+        onClickFn={() => {
+          dispatch(clearCart());
+          history.push("/");
+        }}
       />
     </div>
   ) : (
