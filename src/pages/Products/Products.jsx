@@ -55,11 +55,15 @@ const Products = () => {
     if (!filteredProducts.length) {
       dispatch(fetchProducts());
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     dispatch(sortProducts());
     dispatch(applyFilters());
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sort, filters]);
 
   let debounceTimeout = 0;
@@ -137,7 +141,7 @@ const Products = () => {
                 <input
                   type="range"
                   name="price"
-                  id="price"
+                  className="price"
                   min="0"
                   max={maxPrice}
                   value={filters.price}

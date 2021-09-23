@@ -30,6 +30,8 @@ const Featured = () => {
     if (!featuredProducts.length) {
       dispatch(fetchFeaturedProducts());
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (featuredLoading) {

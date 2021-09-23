@@ -56,6 +56,8 @@ const SingleProduct = () => {
       .catch((err) => console.log(err));
 
     return () => breadcrumbArr.pop();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const increment = () => {
