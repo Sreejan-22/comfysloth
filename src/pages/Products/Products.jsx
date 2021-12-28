@@ -9,7 +9,6 @@ import {
   applyFilters,
   clearFilters,
 } from "../../slices/products.slice";
-import Navbar from "../../components/Navbar/Navbar";
 import BreadCrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import Product from "../../components/Product/Product";
 import Footer from "../../components/Footer/Footer";
@@ -78,7 +77,6 @@ const Products = () => {
 
   return (
     <div>
-      <Navbar />
       <BreadCrumbs arr={breadcrumbArr} />
       {productsLoading ? (
         <Loader />

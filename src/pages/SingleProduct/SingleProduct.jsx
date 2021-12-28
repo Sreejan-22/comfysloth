@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../slices/cart.slice";
 import { makeStyles } from "@material-ui/styles";
 import Rating from "@material-ui/lab/Rating";
-import Navbar from "../../components/Navbar/Navbar";
 import BreadCrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import Footer from "../../components/Footer/Footer";
 import StyledButton from "../../components/StyledButton/StyledButton";
@@ -85,7 +84,6 @@ const SingleProduct = () => {
 
   return (
     <div>
-      <Navbar />
       {loading ? (
         <>
           <br />

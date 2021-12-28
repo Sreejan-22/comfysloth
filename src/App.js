@@ -7,6 +7,7 @@ import About from "./pages/About/About.jsx";
 import Cart from "./pages/Cart/Cart.jsx";
 import Checkout from "./pages/Checkout/Checkout.jsx";
 import Error from "./pages/PageNotFound/PageNotFound.jsx";
+import Navbar from "./components/Navbar/Navbar.jsx";
 import Loader from "./components/Loader/Loader";
 
 import "./App.css";
@@ -20,6 +21,7 @@ function App() {
   return (
     <>
       <Router>
+        <Navbar />
         <Switch>
           <Route path="/products/:id" component={SingleProduct} />
           <Route path="/products" component={Products} />

@@ -8,7 +8,7 @@ import {
   decrement,
 } from "../../slices/cart.slice";
 import { useAuth0 } from "@auth0/auth0-react";
-import Navbar from "../../components/Navbar/Navbar";
+
 import BreadCrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import Footer from "../../components/Footer/Footer";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -35,7 +35,6 @@ const Cart = () => {
 
   return (
     <div>
-      <Navbar />
       <BreadCrumbs arr={breadcrumbArr} />
       <div className="cart-wrapper">
         <div className="cart-container">

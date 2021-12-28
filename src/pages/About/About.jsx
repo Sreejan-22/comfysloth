@@ -1,4 +1,3 @@
-import Navbar from "../../components/Navbar/Navbar";
 import BreadCrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import Footer from "../../components/Footer/Footer";
 import store from "../../assets/store.jpeg";
@@ -18,7 +17,6 @@ const breadcrumbArr = [
 const About = () => {
   return (
     <div>
-      <Navbar />
       <BreadCrumbs arr={breadcrumbArr} />
       <div className="about-content">
         <div>

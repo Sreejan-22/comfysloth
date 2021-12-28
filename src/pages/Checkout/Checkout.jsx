@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import { cartSelector } from "../../slices/cart.slice";
 import StyledButton from "../../components/StyledButton/StyledButton";
-import Navbar from "../../components/Navbar/Navbar";
 import BreadCrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import CheckoutForm from "../../components/CheckoutForm/CheckoutForm";
 import Footer from "../../components/Footer/Footer";
@@ -27,7 +26,6 @@ const Checkout = () => {
 
   return (
     <div>
-      <Navbar />
       <BreadCrumbs arr={breadcrumbArr} />
       {!cartItems.length ? (
         <div

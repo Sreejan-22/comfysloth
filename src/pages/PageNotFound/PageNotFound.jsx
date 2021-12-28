@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom";
-import Navbar from "../../components/Navbar/Navbar";
+
 import Footer from "../../components/Footer/Footer";
 import StyledButton from "../../components/StyledButton/StyledButton";
 
@@ -13,7 +13,6 @@ const PageNotFound = () => {
         backgroundColor: "#eaded7",
       }}
     >
-      <Navbar />
       <div
         style={{
           position: "absolute",
