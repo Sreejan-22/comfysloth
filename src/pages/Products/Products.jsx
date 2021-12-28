@@ -53,14 +53,12 @@ const Products = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(sortProducts());
     dispatch(applyFilters());
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sort, filters]);
+  }, [sort, filters, dispatch]);
 
   let debounceTimeout = 0;
 
