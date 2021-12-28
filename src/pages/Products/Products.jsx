@@ -38,7 +38,6 @@ const Products = () => {
   const dispatch = useDispatch();
   const {
     productsLoading,
-    // productsError,
     sort,
     categories,
     companies,
