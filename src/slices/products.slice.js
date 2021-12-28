@@ -7,7 +7,6 @@ export const initialState = {
   featuredProducts: [],
   featuredLoading: false,
   featuredError: false,
-  gridView: true,
   sort: "price_lowest",
   filteredProducts: [],
   categories: [],
@@ -88,17 +87,12 @@ const productsSlice = createSlice({
       state.featuredError = true;
       state.featuredLoading = false;
     },
-    toggleView: (state, { payload }) => {
-      state.gridView = payload;
-    },
     updateSort: (state, { payload }) => {
       state.sort = payload;
     },
     sortProducts: (state) => {
       let tempProducts = [...state.filteredProducts];
       const sortBy = state.sort;
-      // console.log(tempProducts);
-      // console.log(sortBy);
       if (sortBy === "price_lowest") {
         tempProducts = tempProducts.sort(
           (a, b) => Number(a.price) - Number(b.price)

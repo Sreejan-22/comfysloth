@@ -175,6 +175,7 @@ const Products = () => {
               <select
                 name="sort"
                 onChange={(e) => {
+                  console.log(e.target.value);
                   dispatch(updateSort(e.target.value));
                 }}
               >
