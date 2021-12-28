@@ -3,15 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   productsSelector,
   fetchProducts,
-  toggleView,
   updateSort,
   sortProducts,
   updateFilters,
   applyFilters,
   clearFilters,
 } from "../../slices/products.slice";
-import ViewModuleIcon from "@material-ui/icons/ViewModule";
-// import ViewListIcon from "@material-ui/icons/ViewList";
 import Navbar from "../../components/Navbar/Navbar";
 import BreadCrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import Product from "../../components/Product/Product";
@@ -42,7 +39,6 @@ const Products = () => {
   const {
     productsLoading,
     // productsError,
-    gridView,
     sort,
     categories,
     companies,
@@ -174,17 +170,6 @@ const Products = () => {
           </div>
           <div className="pdt-list">
             <div className="view-filters">
-              {/* CHANGE VIEW */}
-              <div className="view-icons">
-                <ViewModuleIcon
-                  className={`view-icon ${gridView ? "active" : ""}`}
-                  onClick={() => dispatch(toggleView(true))}
-                />
-                {/* <ViewListIcon
-                  className={`view-icon ${!gridView ? "active" : ""}`}
-                  onClick={() => dispatch(toggleView(false))}
-                /> */}
-              </div>
               <span>{filteredProducts.length} products found</span>
               <hr className="view-filters-line" />
               <span className="sort-by-text">Sort By</span>
