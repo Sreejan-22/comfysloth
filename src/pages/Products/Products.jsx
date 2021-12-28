@@ -56,9 +56,13 @@ const Products = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(sortProducts());
     dispatch(applyFilters());
-  }, [sort, filters, dispatch]);
+    dispatch(sortProducts());
+  }, [filters, dispatch]);
+
+  useEffect(() => {
+    dispatch(sortProducts());
+  }, [sort, dispatch]);
 
   let debounceTimeout = 0;
 
