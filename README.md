@@ -17,6 +17,6 @@ email: test@test.com & password: Test123@
 
 React.js, SASS, Material UI, Material Icons, Redux, React Router Dom, Auth0, Stripe
 
-### Upcoming Features
+### Contact
 
-- User order history
+Connect with me on [Twitter](https://twitter.com/sreejan_ch) or [LinkedIn](https://linkedin.com/in/sreejanchaudhury)
