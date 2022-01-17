@@ -1,5 +1,7 @@
 # ComfySloth
 
+### Check out the demo video [here](https://youtu.be/h4F6MgSEQZ0)
+
 An online furniture store where you can buy furniture of impeccable quality and elegant design.
 
 [View Live](https://comfysloth-react.netlify.app/)
